@@ -139,7 +139,12 @@ export const AppProvider = ({ children }) => {
         state_data: stateData
       }]).select();
 
-      if (!error && data && data.length > 0) {
+      if (error) {
+        console.error("Supabase Error creating participant:", error);
+        return { success: false, error: error.message || "Failed to connect to database. Did you run the SQL script?" };
+      }
+
+      if (data && data.length > 0) {
         const p = data[0];
         const newParticipant = {
           id: p.id,
@@ -152,10 +157,13 @@ export const AppProvider = ({ children }) => {
         };
         setParticipants([...participants, newParticipant]);
         setCurrentUserId(p.id);
+        return { success: true };
       } else {
-        console.error("Error creating participant:", error);
+        console.error("Error creating participant: No data returned.");
+        return { success: false, error: "Failed to create participant. No data returned." };
       }
     }
+    return { success: true };
   };
 
   const logout = () => {

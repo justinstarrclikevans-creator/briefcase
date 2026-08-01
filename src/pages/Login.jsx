@@ -7,14 +7,34 @@ const Login = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [location, setLocation] = useState('');
-  const { login } = useAppContext();
+  const { login, currentUser } = useAppContext();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (firstName && lastName && location) {
-      login(firstName, lastName, location);
+  React.useEffect(() => {
+    if (currentUser) {
       navigate('/dashboard');
+    }
+  }, [currentUser, navigate]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setErrorMsg('');
+    if (firstName && lastName && location) {
+      setIsLoading(true);
+      try {
+        const res = await login(firstName, lastName, location);
+        if (res && !res.success) {
+          setErrorMsg(res.error || "An unknown error occurred.");
+        }
+      } catch (err) {
+        console.error("Login Exception:", err);
+        setErrorMsg("System error: " + err.message);
+      }
+      setIsLoading(false);
+    } else {
+      setErrorMsg('Please fill out all fields, including location.');
     }
   };
 
@@ -28,6 +48,7 @@ const Login = () => {
         </div>
         <h1 style={{ marginBottom: '0.5rem', color: 'var(--primary)' }}>Turn90 Briefcase</h1>
         <p className="text-muted" style={{ marginBottom: '2rem' }}>Track your progress and needs.</p>
+        {errorMsg && <div style={{ color: 'var(--danger)', marginBottom: '1rem', padding: '0.5rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>{errorMsg}</div>}
 
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
@@ -37,7 +58,6 @@ const Login = () => {
               placeholder="First Name" 
               value={firstName} 
               onChange={(e) => setFirstName(e.target.value)}
-              required 
             />
           </div>
           <div>
@@ -47,7 +67,6 @@ const Login = () => {
               placeholder="Last Name" 
               value={lastName} 
               onChange={(e) => setLastName(e.target.value)}
-              required 
             />
           </div>
           <div>
@@ -55,7 +74,6 @@ const Login = () => {
               className="input-field" 
               value={location} 
               onChange={(e) => setLocation(e.target.value)}
-              required
             >
               <option value="" disabled>Select Location</option>
               <option value="Charleston">Charleston</option>
@@ -64,8 +82,8 @@ const Login = () => {
             </select>
           </div>
           
-          <button type="submit" className="btn-primary" style={{ marginTop: '1rem' }}>
-            Open Briefcase
+          <button type="submit" className="btn-primary" style={{ marginTop: '1rem' }} disabled={isLoading}>
+            {isLoading ? 'Loading...' : 'Open Briefcase'}
           </button>
         </form>
       </div>
