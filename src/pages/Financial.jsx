@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { VIDEOS } from '../config/videos';
-import { Video, DollarSign, Calculator } from 'lucide-react';
+import { Video, DollarSign, Calculator, PlayCircle } from 'lucide-react';
+import VideoModal from '../components/VideoModal';
 
 const Financial = () => {
   const { currentUser, updateSection, logActivity } = useAppContext();
+  const [activeVideo, setActiveVideo] = useState(null);
   
   if (!currentUser) return null;
 
@@ -77,6 +79,7 @@ const Financial = () => {
 
   return (
     <div className="page-container animate-fade-in">
+      {activeVideo && <VideoModal videoConfig={activeVideo} onClose={() => setActiveVideo(null)} />}
       <h1 style={{ color: 'var(--primary)' }}>Financial</h1>
       <p className="text-muted">Manage your budget, understand paychecks, and set financial goals.</p>
 
@@ -125,12 +128,12 @@ const Financial = () => {
                 <input type="checkbox" checked={data.understandingPaychecks} onChange={() => handleCheck('understandingPaychecks')} />
                 <span>Understanding of Paychecks & Taxes</span>
               </label>
-              <a href={VIDEOS.readingPaycheck} onClick={() => logActivity('Watched video: Reading a Paycheck')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-                <Video size={16} /> Watch: Reading a Paycheck
-              </a>
-              <a href={VIDEOS.employeeBenefits} onClick={() => logActivity('Watched video: Understanding Employee Benefits')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-                <Video size={16} /> Watch: Understanding employer benefits
-              </a>
+              <button onClick={() => setActiveVideo(VIDEOS.readingPaycheck)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                <PlayCircle size={16} /> Watch: Reading a Paycheck
+              </button>
+              <button onClick={() => setActiveVideo(VIDEOS.employeeBenefits)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                <PlayCircle size={16} /> Watch: Understanding employer benefits
+              </button>
             </div>
           </div>
 

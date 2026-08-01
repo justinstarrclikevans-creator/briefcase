@@ -1,8 +1,38 @@
 export const VIDEOS = {
-  professionalEmail: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder, you can change these later
-  professionalVoicemail: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  healthCareOptions: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  welvista: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  readingPaycheck: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  employeeBenefits: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  professionalEmail: {
+    id: "dQw4w9WgXcQ", // Placeholder YouTube ID
+    section: "coreStability",
+    field: "professionalEmail",
+    title: "What makes an email professional?"
+  },
+  professionalVoicemail: {
+    id: "dQw4w9WgXcQ",
+    section: "coreStability",
+    field: "professionalVoicemail",
+    title: "Recording a professional voicemail"
+  },
+  readingPaycheck: {
+    id: "dQw4w9WgXcQ",
+    section: "financial",
+    field: "understandingPaychecks",
+    title: "Reading a Paycheck"
+  },
+  employeeBenefits: {
+    id: "dQw4w9WgXcQ",
+    section: "financial",
+    field: "understandingPaychecks",
+    title: "Understanding Employee Benefits"
+  },
+  healthCareOptions: {
+    id: "dQw4w9WgXcQ",
+    section: "healthWellness",
+    field: "healthCarePlan",
+    title: "Healthcare Options in SC"
+  },
+  welvista: {
+    id: "dQw4w9WgXcQ",
+    section: "healthWellness",
+    field: "welvistaReferral",
+    title: "Welvista Rx Program"
+  }
 };

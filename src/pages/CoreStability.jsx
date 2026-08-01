@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { VIDEOS } from '../config/videos';
-import { AlertTriangle, CheckCircle, Video } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Video, PlayCircle } from 'lucide-react';
+import VideoModal from '../components/VideoModal';
 
 const CoreStability = () => {
   const { currentUser, updateSection, logActivity } = useAppContext();
   const [emailError, setEmailError] = useState('');
+  const [activeVideo, setActiveVideo] = useState(null);
 
   if (!currentUser) return null;
 
@@ -34,6 +36,7 @@ const CoreStability = () => {
 
   return (
     <div className="page-container animate-fade-in">
+      {activeVideo && <VideoModal videoConfig={activeVideo} onClose={() => setActiveVideo(null)} />}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ color: 'var(--primary)', margin: 0 }}>Core Stability</h1>
         <div style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', padding: '0.5rem 1rem', borderRadius: '20px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -87,9 +90,9 @@ const CoreStability = () => {
             />
             {emailError && <div style={{ color: 'var(--danger)', fontSize: '0.85rem', marginTop: '0.5rem', display: 'flex', gap: '0.25rem', alignItems: 'center' }}><AlertTriangle size={14} />{emailError}</div>}
             
-            <a href={VIDEOS.professionalEmail} onClick={() => logActivity('Watched video: Professional Email')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              <Video size={16} /> Watch: What makes an email professional?
-            </a>
+            <button onClick={() => setActiveVideo(VIDEOS.professionalEmail)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: What makes an email professional?
+            </button>
           </div>
 
           <div style={{ padding: '1rem', background: 'rgba(0,0,0,0.03)', borderRadius: '8px' }}>
@@ -97,9 +100,9 @@ const CoreStability = () => {
               <input type="checkbox" checked={data.professionalVoicemail} onChange={() => handleCheck('professionalVoicemail')} />
               <span>Professional Voicemail Setup</span>
             </label>
-            <a href={VIDEOS.professionalVoicemail} onClick={() => logActivity('Watched video: Professional Voicemail')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              <Video size={16} /> Watch: Recording a professional voicemail
-            </a>
+            <button onClick={() => setActiveVideo(VIDEOS.professionalVoicemail)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Recording a professional voicemail
+            </button>
           </div>
         </div>
 

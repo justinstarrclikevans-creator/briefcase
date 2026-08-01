@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { VIDEOS } from '../config/videos';
-import { Video } from 'lucide-react';
+import { Video, PlayCircle } from 'lucide-react';
+import VideoModal from '../components/VideoModal';
 
 const HealthWellness = () => {
   const { currentUser, updateSection, logActivity } = useAppContext();
+  const [activeVideo, setActiveVideo] = useState(null);
 
   if (!currentUser) return null;
 
@@ -16,6 +18,7 @@ const HealthWellness = () => {
 
   return (
     <div className="page-container animate-fade-in">
+      {activeVideo && <VideoModal videoConfig={activeVideo} onClose={() => setActiveVideo(null)} />}
       <h1 style={{ color: 'var(--primary)' }}>Health & Wellness</h1>
       <p className="text-muted">Keep track of your physical and mental health resources.</p>
 
@@ -31,9 +34,9 @@ const HealthWellness = () => {
               <span>Health Insurance / Coverage Plan</span>
             </label>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>We offer free options like free clinics and Welvista for those who qualify.</p>
-            <a href={VIDEOS.healthCareOptions} onClick={() => logActivity('Watched video: Healthcare Options in SC')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              <Video size={16} /> Watch: Healthcare Options in SC
-            </a>
+            <button onClick={() => setActiveVideo(VIDEOS.healthCareOptions)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Healthcare Options in SC
+            </button>
           </div>
 
           <div style={{ padding: '1rem', background: 'rgba(0,0,0,0.03)', borderRadius: '8px', marginBottom: '1rem' }}>
@@ -41,9 +44,9 @@ const HealthWellness = () => {
               <input type="checkbox" checked={data.welvistaReferral} onChange={() => handleCheck('welvistaReferral')} />
               <span>Welvista Referral Reviewed</span>
             </label>
-            <a href={VIDEOS.welvista} onClick={() => logActivity('Watched video: Welvista Rx')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              <Video size={16} /> Watch: Welvista Rx Program
-            </a>
+            <button onClick={() => setActiveVideo(VIDEOS.welvista)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Welvista Rx Program
+            </button>
           </div>
         </div>
 
