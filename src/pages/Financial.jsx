@@ -10,26 +10,70 @@ const Financial = () => {
 
   const data = currentUser.financial;
   
-  const [income, setIncome] = useState(data.budgetData.income || '');
-  const [expenses, setExpenses] = useState(data.budgetData.expenses || '');
+  const initialBudget = data.budgetData || {};
+  const [budget, setBudget] = useState({
+    incomeJob: initialBudget.incomeJob || 0,
+    incomeOther: initialBudget.incomeOther || initialBudget.income || 0,
+    expenseRent: initialBudget.expenseRent || 0,
+    expenseGroceries: initialBudget.expenseGroceries || 0,
+    expenseUtilities: initialBudget.expenseUtilities || 0,
+    expenseTransportation: initialBudget.expenseTransportation || 0,
+    expenseChildSupport: initialBudget.expenseChildSupport || 0,
+    expenseProbation: initialBudget.expenseProbation || 0,
+    expenseOther: initialBudget.expenseOther || initialBudget.expenses || 0,
+  });
+  
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    const inc = parseFloat(income) || 0;
-    const exp = parseFloat(expenses) || 0;
+    const inc = (parseFloat(budget.incomeJob) || 0) + (parseFloat(budget.incomeOther) || 0);
+    const exp = (parseFloat(budget.expenseRent) || 0) + 
+                (parseFloat(budget.expenseGroceries) || 0) + 
+                (parseFloat(budget.expenseUtilities) || 0) + 
+                (parseFloat(budget.expenseTransportation) || 0) + 
+                (parseFloat(budget.expenseChildSupport) || 0) + 
+                (parseFloat(budget.expenseProbation) || 0) + 
+                (parseFloat(budget.expenseOther) || 0);
     setBalance(inc - exp);
-  }, [income, expenses]);
+  }, [budget]);
+
+  const handleBudgetChange = (field, value) => {
+    setBudget(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleCheck = (field) => {
     updateSection('financial', { [field]: !data[field] }, `Updated financial task: ${field}`);
   };
 
   const saveBudget = () => {
+    // Convert all to floats before saving
+    const parsedBudget = Object.keys(budget).reduce((acc, key) => {
+      acc[key] = parseFloat(budget[key]) || 0;
+      return acc;
+    }, {});
+
     updateSection('financial', {
-      budgetData: { income: parseFloat(income) || 0, expenses: parseFloat(expenses) || 0 },
+      budgetData: parsedBudget,
       budgetWorksheetCompleted: true
-    });
+    }, 'Completed and saved detailed Budget Worksheet');
   };
+
+  const renderInput = (field, label) => (
+    <div style={{ marginBottom: '0.75rem' }}>
+      <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>{label}</label>
+      <div style={{ position: 'relative' }}>
+        <DollarSign size={16} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+        <input 
+          type="number" 
+          className="input-field" 
+          style={{ paddingLeft: '2rem' }}
+          placeholder="0.00"
+          value={budget[field] === 0 ? '' : budget[field]}
+          onChange={(e) => handleBudgetChange(field, e.target.value)}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <div className="page-container animate-fade-in">
@@ -41,47 +85,32 @@ const Financial = () => {
         {/* Budget Worksheet */}
         <div className="glass-card">
           <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Calculator size={20} /> Interactive Budget Worksheet
+            <Calculator size={20} /> Detailed Budget Worksheet
           </h3>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
             <div>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Total Monthly Income</label>
-              <div style={{ position: 'relative' }}>
-                <DollarSign size={16} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input 
-                  type="number" 
-                  className="input-field" 
-                  style={{ paddingLeft: '2rem' }}
-                  placeholder="0.00"
-                  value={income}
-                  onChange={(e) => setIncome(e.target.value)}
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Total Monthly Expenses (Rent, Food, Phone, etc.)</label>
-              <div style={{ position: 'relative' }}>
-                <DollarSign size={16} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input 
-                  type="number" 
-                  className="input-field" 
-                  style={{ paddingLeft: '2rem' }}
-                  placeholder="0.00"
-                  value={expenses}
-                  onChange={(e) => setExpenses(e.target.value)}
-                />
-              </div>
+              <h4 style={{ margin: '0 0 1rem 0', color: 'var(--success)' }}>Monthly Income</h4>
+              {renderInput('incomeJob', 'Job / Primary Income')}
+              {renderInput('incomeOther', 'Other Income')}
+              
+              <h4 style={{ margin: '1.5rem 0 1rem 0', color: 'var(--danger)' }}>Monthly Expenses</h4>
+              {renderInput('expenseRent', 'Rent / Housing')}
+              {renderInput('expenseGroceries', 'Groceries / Food')}
+              {renderInput('expenseUtilities', 'Phone / Utilities')}
+              {renderInput('expenseTransportation', 'Transportation / Gas')}
+              {renderInput('expenseChildSupport', 'Child Support')}
+              {renderInput('expenseProbation', 'Probation Fees')}
+              {renderInput('expenseOther', 'Other Expenses')}
             </div>
 
-            <div style={{ padding: '1rem', background: balance >= 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', textAlign: 'center' }}>
+            <div style={{ padding: '1rem', marginTop: '1rem', background: balance >= 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', textAlign: 'center' }}>
               <h4 style={{ margin: 0, color: balance >= 0 ? 'var(--success)' : 'var(--danger)' }}>
                 Remaining Balance: ${balance.toFixed(2)}
               </h4>
             </div>
 
-            <button className="btn-primary" onClick={saveBudget}>Save Budget</button>
+            <button className="btn-primary" onClick={saveBudget} style={{ marginTop: '0.5rem' }}>Save Budget</button>
             {data.budgetWorksheetCompleted && <p style={{ color: 'var(--success)', fontSize: '0.85rem', textAlign: 'center' }}>Budget saved!</p>}
           </div>
         </div>
