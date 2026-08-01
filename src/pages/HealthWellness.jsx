@@ -4,7 +4,7 @@ import { VIDEOS } from '../config/videos';
 import { Video } from 'lucide-react';
 
 const HealthWellness = () => {
-  const { currentUser, updateSection } = useAppContext();
+  const { currentUser, updateSection, logActivity } = useAppContext();
 
   if (!currentUser) return null;
 
@@ -31,8 +31,8 @@ const HealthWellness = () => {
               <span>Health Insurance / Coverage Plan</span>
             </label>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>We offer free options like free clinics and Welvista for those who qualify.</p>
-            <a href={VIDEOS.healthCareOptions} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              <Video size={16} /> Watch: Health Care Options Explained
+            <a href={VIDEOS.healthCareOptions} onClick={() => logActivity('Watched video: Healthcare Options in SC')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+              <Video size={16} /> Watch: Healthcare Options in SC
             </a>
           </div>
 
@@ -41,8 +41,8 @@ const HealthWellness = () => {
               <input type="checkbox" checked={data.welvistaReferral} onChange={() => handleCheck('welvistaReferral')} />
               <span>Welvista Referral Reviewed</span>
             </label>
-            <a href={VIDEOS.welvista} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-              <Video size={16} /> Watch: What is the Welvista Program?
+            <a href={VIDEOS.welvista} onClick={() => logActivity('Watched video: Welvista Rx')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+              <Video size={16} /> Watch: Welvista Rx Program
             </a>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { VIDEOS } from '../config/videos';
 import { Video, DollarSign, Calculator } from 'lucide-react';
 
 const Financial = () => {
-  const { currentUser, updateSection } = useAppContext();
+  const { currentUser, updateSection, logActivity } = useAppContext();
   
   if (!currentUser) return null;
 
@@ -96,10 +96,10 @@ const Financial = () => {
                 <input type="checkbox" checked={data.understandingPaychecks} onChange={() => handleCheck('understandingPaychecks')} />
                 <span>Understanding of Paychecks & Taxes</span>
               </label>
-              <a href={VIDEOS.readingPaycheck} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
-                <Video size={16} /> Watch: How to read a paycheck
+              <a href={VIDEOS.readingPaycheck} onClick={() => logActivity('Watched video: Reading a Paycheck')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+                <Video size={16} /> Watch: Reading a Paycheck
               </a>
-              <a href={VIDEOS.employeeBenefits} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
+              <a href={VIDEOS.employeeBenefits} onClick={() => logActivity('Watched video: Understanding Employee Benefits')} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem' }}>
                 <Video size={16} /> Watch: Understanding employer benefits
               </a>
             </div>
