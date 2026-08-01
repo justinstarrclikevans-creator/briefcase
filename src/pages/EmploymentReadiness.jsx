@@ -18,6 +18,8 @@ const EmploymentReadiness = () => {
     updateSection('employmentReadiness', { careerInterest: e.target.value });
   };
 
+  const [showProfiler, setShowProfiler] = useState(false);
+
   const updateResumeField = (field, value) => {
     updateSection('employmentReadiness', { 
       resumeData: { ...data.resumeData, [field]: value } 
@@ -79,6 +81,32 @@ const EmploymentReadiness = () => {
 
   return (
     <div className="page-container animate-fade-in">
+      
+      {showProfiler && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.9)', zIndex: 1000, display: 'flex', flexDirection: 'column', padding: '2rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <div>
+              <h2 style={{ color: 'white', margin: 0 }}>O*NET Interest Profiler</h2>
+              <p style={{ color: '#ccc', margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>Take the 60-question test to discover your career interests. When you get your results, type your top 3 matches below!</p>
+            </div>
+            <button onClick={() => setShowProfiler(false)} className="btn-primary" style={{ background: 'var(--danger)', border: 'none' }}>Close Profiler</button>
+          </div>
+          
+          <iframe 
+            src="https://onetinterestprofiler.org/" 
+            style={{ flex: 1, border: 'none', borderRadius: '8px', background: 'white' }} 
+            title="O*NET Profiler" 
+          />
+          
+          <div style={{ background: 'var(--bg-card)', padding: '1rem', borderRadius: '8px', marginTop: '1rem', display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <p style={{ margin: 0, fontWeight: 600, color: 'var(--text-primary)' }}>Finished? Save your top 3 careers:</p>
+            <input type="text" className="input-field" style={{ flex: 1, minWidth: '150px' }} placeholder="1st Career Match" value={data.topCareer1 || ''} onChange={(e) => updateSection('employmentReadiness', { topCareer1: e.target.value }, 'Saved 1st Career Match')} />
+            <input type="text" className="input-field" style={{ flex: 1, minWidth: '150px' }} placeholder="2nd Career Match" value={data.topCareer2 || ''} onChange={(e) => updateSection('employmentReadiness', { topCareer2: e.target.value }, 'Saved 2nd Career Match')} />
+            <input type="text" className="input-field" style={{ flex: 1, minWidth: '150px' }} placeholder="3rd Career Match" value={data.topCareer3 || ''} onChange={(e) => updateSection('employmentReadiness', { topCareer3: e.target.value }, 'Saved 3rd Career Match')} />
+          </div>
+        </div>
+      )}
+
       <h1 style={{ color: 'var(--primary)' }}>Employment Readiness</h1>
       <p className="text-muted">Prepare for your career, build your resume, and track job applications.</p>
 
@@ -86,6 +114,26 @@ const EmploymentReadiness = () => {
         
         {/* Survey & Checklist */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          
+          <div className="glass-card" style={{ border: '2px solid var(--primary)', background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(79, 70, 229, 0.15) 100%)' }}>
+            <h3 style={{ borderBottom: '1px solid rgba(79, 70, 229, 0.2)', paddingBottom: '0.5rem', color: 'var(--primary)' }}>O*NET Career Assessment</h3>
+            <p style={{ fontSize: '0.85rem' }}>Don't know what you want to do? Take the official 60-question O*NET Interest Profiler to find careers that match your personality.</p>
+            
+            <button className="btn-primary" onClick={() => setShowProfiler(true)} style={{ width: '100%', marginTop: '0.5rem', padding: '1rem' }}>
+              Launch O*NET Assessment
+            </button>
+            
+            {(data.topCareer1 || data.topCareer2 || data.topCareer3) && (
+              <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(255,255,255,0.5)', borderRadius: '8px' }}>
+                <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>Your Top Matches:</h4>
+                <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.85rem' }}>
+                  {data.topCareer1 && <li>{data.topCareer1}</li>}
+                  {data.topCareer2 && <li>{data.topCareer2}</li>}
+                  {data.topCareer3 && <li>{data.topCareer3}</li>}
+                </ul>
+              </div>
+            )}
+          </div>
           <div className="glass-card">
             <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Career Interest</h3>
             <p style={{ fontSize: '0.85rem' }}>Which of these industries are you most interested in?</p>
