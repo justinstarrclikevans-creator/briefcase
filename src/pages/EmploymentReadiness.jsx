@@ -11,7 +11,7 @@ const EmploymentReadiness = () => {
   const data = currentUser.employmentReadiness;
 
   const handleCheck = (field) => {
-    updateSection('employmentReadiness', { [field]: !data[field] });
+    updateSection('employmentReadiness', { [field]: !data[field] }, `Updated employment readiness task: ${field}`);
   };
 
   const handleSurvey = (e) => {
@@ -51,8 +51,8 @@ const EmploymentReadiness = () => {
     a.click();
     URL.revokeObjectURL(url);
     
-    // Mark as completed
-    updateSection('employmentReadiness', { resumeCompleted: true });
+    // Set resume as completed and trigger confetti/log
+    updateSection('employmentReadiness', { resumeCompleted: true }, "Completed and downloaded Resume");
   };
 
   const addApplication = (e) => {

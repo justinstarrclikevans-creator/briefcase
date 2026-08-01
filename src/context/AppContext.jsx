@@ -223,7 +223,7 @@ export const AppProvider = ({ children }) => {
     await supabase.from('participants').update(dbUpdates).eq('id', id);
   };
 
-  const updateSection = (sectionName, updates) => {
+  const updateSection = (sectionName, updates, logMessage) => {
     if (!currentUser) return;
     const newStateDataUpdate = {
       [sectionName]: {
@@ -231,7 +231,21 @@ export const AppProvider = ({ children }) => {
         ...updates
       }
     };
-    updateParticipant(currentUser.id, null, newStateDataUpdate);
+    
+    let dailyLogUpdate = {};
+    if (logMessage) {
+      const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      const logEntry = { date: today, activity: `[${time}] ${logMessage}`, timestamp: new Date().toISOString() };
+      dailyLogUpdate = {
+        dailyActivityLog: [...currentUser.dailyActivityLog, logEntry]
+      };
+    }
+
+    updateParticipant(currentUser.id, null, {
+      ...newStateDataUpdate,
+      ...dailyLogUpdate
+    });
   };
 
   const logActivity = (activityDescription) => {

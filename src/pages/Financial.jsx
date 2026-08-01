@@ -21,7 +21,7 @@ const Financial = () => {
   }, [income, expenses]);
 
   const handleCheck = (field) => {
-    updateSection('financial', { [field]: !data[field] });
+    updateSection('financial', { [field]: !data[field] }, `Updated financial task: ${field}`);
   };
 
   const saveBudget = () => {

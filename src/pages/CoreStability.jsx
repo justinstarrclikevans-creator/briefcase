@@ -12,13 +12,13 @@ const CoreStability = () => {
   const data = currentUser.coreStability;
 
   const handleCheck = (field) => {
-    updateSection('coreStability', { [field]: !data[field] });
+    updateSection('coreStability', { [field]: !data[field] }, `Updated core requirement: ${field}`);
   };
 
   const handleLegalCheck = (field) => {
     updateSection('coreStability', { 
       legalRequirements: { ...data.legalRequirements, [field]: !data.legalRequirements[field] } 
-    });
+    }, `Updated legal requirement: ${field}`);
   };
 
   const validateEmail = (email) => {

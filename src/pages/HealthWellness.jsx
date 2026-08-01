@@ -11,7 +11,7 @@ const HealthWellness = () => {
   const data = currentUser.healthWellness;
 
   const handleCheck = (field) => {
-    updateSection('healthWellness', { [field]: !data[field] });
+    updateSection('healthWellness', { [field]: !data[field] }, `Updated health task: ${field}`);
   };
 
   return (
