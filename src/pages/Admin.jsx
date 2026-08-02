@@ -54,11 +54,19 @@ const Admin = () => {
 
   const getMissingNeeds = (p) => {
     const needs = [];
-    if (!p.coreStability.stateId) needs.push('State ID');
-    if (!p.coreStability.birthCertificate) needs.push('Birth Certificate');
-    if (!p.employmentReadiness.resumeCompleted) needs.push('Resume');
-    if (!p.healthWellness.healthInsurance) needs.push('Health Insurance');
-    if (!p.financial.bankAccountOpened) needs.push('Bank Account');
+    const skipKeys = ['legalRequirements', 'resumeData', 'jobApplications', 'budgetData', 'emailAddress'];
+    const sections = ['coreStability', 'employmentReadiness', 'healthWellness', 'financial', 'careerPlanning'];
+
+    sections.forEach(sec => {
+      if (!p[sec]) return;
+      Object.entries(p[sec]).forEach(([key, value]) => {
+        if (skipKeys.includes(key)) return;
+        if (value === false || (typeof value === 'string' && value.trim() === '')) {
+          const formatted = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+          needs.push(formatted);
+        }
+      });
+    });
     return needs;
   };
 

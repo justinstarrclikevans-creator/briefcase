@@ -122,7 +122,13 @@ export const AppProvider = ({ children }) => {
         location: p.location,
         goal90Day: p.goal_90_day,
         lastLogin: p.last_login,
-        ...p.state_data
+        coreStability: { ...initialParticipantState.coreStability, ...(p.state_data.coreStability || {}) },
+        employmentReadiness: { ...initialParticipantState.employmentReadiness, ...(p.state_data.employmentReadiness || {}) },
+        healthWellness: { ...initialParticipantState.healthWellness, ...(p.state_data.healthWellness || {}) },
+        financial: { ...initialParticipantState.financial, ...(p.state_data.financial || {}) },
+        careerPlanning: { ...initialParticipantState.careerPlanning, ...(p.state_data.careerPlanning || {}) },
+        training: { ...initialParticipantState.training, ...(p.state_data.training || {}) },
+        dailyActivityLog: p.state_data.dailyActivityLog || []
       }));
       setParticipants(mapped);
     } else {
