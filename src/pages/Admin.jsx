@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Lock, Trash2, MapPin } from 'lucide-react';
+import { Lock, Trash2, MapPin, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
   const { participants, removeParticipant } = useAppContext();
@@ -39,6 +40,12 @@ const Admin = () => {
             {error && <p style={{ color: 'var(--danger)', fontSize: '0.85rem', margin: 0 }}>{error}</p>}
             <button type="submit" className="btn-primary">View Report</button>
           </form>
+          
+          <div style={{ marginTop: '1.5rem' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>
+              <ArrowLeft size={16} /> Back to Participant Login
+            </Link>
+          </div>
         </div>
       </div>
     );

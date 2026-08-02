@@ -24,8 +24,7 @@ const Sidebar = () => {
     { to: '/health-wellness', icon: <HeartPulse size={20} />, label: 'Health & Wellness' },
     { to: '/financial', icon: <DollarSign size={20} />, label: 'Financial' },
     { to: '/training', icon: <Wrench size={20} />, label: 'Training Modules' },
-    { to: '/career-planning', icon: <Map size={20} />, label: 'Career Planning' },
-    { to: '/admin', icon: <FileText size={20} />, label: 'Admin Reports' },
+    { to: '/career-planning', icon: <Map size={20} />, label: 'Career Planning' }
   ];
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, Shield } from 'lucide-react';
 
 const Login = () => {
   const [firstName, setFirstName] = useState('');
@@ -86,6 +86,12 @@ const Login = () => {
             {isLoading ? 'Loading...' : 'Open Briefcase'}
           </button>
         </form>
+        
+        <div style={{ marginTop: '2rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'center' }}>
+          <Link to="/admin" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.85rem' }}>
+            <Shield size={16} /> Program Manager Access
+          </Link>
+        </div>
       </div>
     </div>
   );

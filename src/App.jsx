@@ -18,6 +18,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/admin" element={<Admin />} />
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/core-stability" element={<CoreStability />} />
@@ -26,7 +27,6 @@ const App = () => {
             <Route path="/financial" element={<Financial />} />
             <Route path="/career-planning" element={<CareerPlanning />} />
             <Route path="/training" element={<Training />} />
-            <Route path="/admin" element={<Admin />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
