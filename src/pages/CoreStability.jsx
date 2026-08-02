@@ -17,6 +17,10 @@ const CoreStability = () => {
     updateSection('coreStability', { [field]: !data[field] }, `Updated core requirement: ${field}`);
   };
 
+  const handleTextChange = (field, value) => {
+    updateSection('coreStability', { [field]: value });
+  };
+
   const handleLegalCheck = (field) => {
     updateSection('coreStability', { 
       legalRequirements: { ...data.legalRequirements, [field]: !data.legalRequirements[field] } 
@@ -109,17 +113,39 @@ const CoreStability = () => {
         {/* Life & Legal */}
         <div className="glass-card">
           <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>Plans & Legal</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
-            {[
-              { id: 'transportationPlan', label: 'Transportation Plan' },
-              { id: 'housingPlan', label: 'Housing Plan / Stable Address' },
-              { id: 'childSupportContact', label: 'Child Support Contact / Status Reviewed' },
-            ].map((item) => (
-              <label key={item.id} className="checkbox-wrapper">
-                <input type="checkbox" checked={data[item.id]} onChange={() => handleCheck(item.id)} />
-                <span>{item.label}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+            
+            <div style={{ background: 'rgba(0,0,0,0.03)', padding: '1rem', borderRadius: '8px' }}>
+              <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>Transportation Plan</label>
+              <textarea 
+                className="input-field" 
+                rows="3" 
+                placeholder="Explain your transportation plan..."
+                value={data.transportationPlan || ''}
+                onChange={(e) => handleTextChange('transportationPlan', e.target.value)}
+              />
+            </div>
+
+            <div style={{ background: 'rgba(0,0,0,0.03)', padding: '1rem', borderRadius: '8px' }}>
+              <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem' }}>Housing Plan / Stable Address</label>
+              <textarea 
+                className="input-field" 
+                rows="3" 
+                placeholder="Explain your housing plan..."
+                value={data.housingPlan || ''}
+                onChange={(e) => handleTextChange('housingPlan', e.target.value)}
+              />
+            </div>
+
+            <div style={{ background: 'rgba(0,0,0,0.03)', padding: '1rem', borderRadius: '8px' }}>
+              <label className="checkbox-wrapper" style={{ padding: 0 }}>
+                <input type="checkbox" checked={data.childSupportContact} onChange={() => handleCheck('childSupportContact')} />
+                <span style={{ fontWeight: 600 }}>Child Support Reviewed</span>
               </label>
-            ))}
+              <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                Check this box only if you’re not on child support or you’ve been in contact with child support and are current with payments.
+              </p>
+            </div>
           </div>
 
           <h4 style={{ marginTop: '1.5rem', color: 'var(--warning)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

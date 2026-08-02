@@ -7,7 +7,8 @@ import {
   HeartPulse, 
   DollarSign, 
   Map, 
-  FileText 
+  FileText,
+  Wrench
 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
@@ -22,6 +23,7 @@ const Sidebar = () => {
     { to: '/employment-readiness', icon: <Briefcase size={20} />, label: 'Employment Readiness' },
     { to: '/health-wellness', icon: <HeartPulse size={20} />, label: 'Health & Wellness' },
     { to: '/financial', icon: <DollarSign size={20} />, label: 'Financial' },
+    { to: '/training', icon: <Wrench size={20} />, label: 'Training Modules' },
     { to: '/career-planning', icon: <Map size={20} />, label: 'Career Planning' },
     { to: '/admin', icon: <FileText size={20} />, label: 'Admin Reports' },
   ];

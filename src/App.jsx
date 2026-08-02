@@ -9,6 +9,7 @@ import EmploymentReadiness from './pages/EmploymentReadiness';
 import HealthWellness from './pages/HealthWellness';
 import Financial from './pages/Financial';
 import CareerPlanning from './pages/CareerPlanning';
+import Training from './pages/Training';
 import Admin from './pages/Admin';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/health-wellness" element={<HealthWellness />} />
             <Route path="/financial" element={<Financial />} />
             <Route path="/career-planning" element={<CareerPlanning />} />
+            <Route path="/training" element={<Training />} />
             <Route path="/admin" element={<Admin />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

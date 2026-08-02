@@ -34,8 +34,11 @@ const HealthWellness = () => {
               <span>Health Insurance / Coverage Plan</span>
             </label>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>We offer free options like free clinics and Welvista for those who qualify.</p>
-            <button onClick={() => setActiveVideo(VIDEOS.healthCareOptions)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-              <PlayCircle size={16} /> Watch: Healthcare Options in SC
+            <button onClick={() => setActiveVideo(VIDEOS.healthcareFreeLowCost)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Free and Low Cost Options
+            </button>
+            <button onClick={() => setActiveVideo(VIDEOS.healthcareUnderstandingCosts)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Understanding Healthcare Costs
             </button>
           </div>
 
@@ -44,8 +47,14 @@ const HealthWellness = () => {
               <input type="checkbox" checked={data.welvistaReferral} onChange={() => handleCheck('welvistaReferral')} />
               <span>Welvista Referral Reviewed</span>
             </label>
-            <button onClick={() => setActiveVideo(VIDEOS.welvista)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-              <PlayCircle size={16} /> Watch: Welvista Rx Program
+            <button onClick={() => setActiveVideo(VIDEOS.welvistaMedication)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Medication Assistance
+            </button>
+            <button onClick={() => setActiveVideo(VIDEOS.welvistaSmiles)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Smiles for Life
+            </button>
+            <button onClick={() => setActiveVideo(VIDEOS.welvistaTour)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem', color: 'var(--primary)', textDecoration: 'none', fontSize: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              <PlayCircle size={16} /> Watch: Welvista Tour
             </button>
           </div>
         </div>
@@ -67,6 +76,16 @@ const HealthWellness = () => {
                 <span>{item.label}</span>
               </label>
             ))}
+            
+            <div style={{ background: 'rgba(0,0,0,0.03)', padding: '1rem', borderRadius: '8px', marginTop: '0.5rem' }}>
+              <label className="checkbox-wrapper" style={{ padding: 0 }}>
+                <input type="checkbox" checked={data.medicationsCurrent} onChange={() => handleCheck('medicationsCurrent')} />
+                <span style={{ fontWeight: 600 }}>Medications are current</span>
+              </label>
+              <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                Check only if you are not prescribed medication or you're on medications but they are filled and you have a plan to keep them current.
+              </p>
+            </div>
           </div>
         </div>
 

@@ -19,8 +19,8 @@ const initialParticipantState = {
     libraryCard: false,
     bankAccount: false,
     childSupportContact: false,
-    transportationPlan: false,
-    housingPlan: false,
+    transportationPlan: '',
+    housingPlan: '',
     legalRequirements: {
       childSupport: false,
       probationClasses: false,
@@ -45,6 +45,7 @@ const initialParticipantState = {
     primaryCare: false,
     visionAppointment: false,
     prescriptionNeeds: false,
+    medicationsCurrent: false,
     mentalHealthReferral: false,
     substanceRecovery: false,
   },
@@ -66,7 +67,36 @@ const initialParticipantState = {
     sixMonthGoal: '',
     longTermWageGoal: ''
   },
-  dailyActivityLog: [] 
+  dailyActivityLog: [],
+  training: {
+    basicsDrillBits: false,
+    basicsCordlessDrills: false,
+    basicsHandTools: false,
+    basicsTapeMeasure: false,
+    drywallRemove: false,
+    drywallTapeMud: false,
+    drywallAnchors: false,
+    drywallHang: false,
+    drywallTypes: false,
+    drywallCut: false,
+    weldingTips: false,
+    weldingMig: false,
+    weldingHelmets: false,
+    weldingStainless: false,
+    weldingAluminum: false,
+    weldingFluxCore: false,
+    hvacBasics: false,
+    hvacPressures: false,
+    hvacCompressors: false,
+    hvacDuctwork: false,
+    hvacCapacitors: false,
+    digitalGmail: false,
+    digitalDocs: false,
+    digitalSheets: false,
+    digitalAi: false,
+    forkliftExternal: false,
+    osha10External: false
+  }
 };
 
 export const AppProvider = ({ children }) => {
@@ -129,7 +159,8 @@ export const AppProvider = ({ children }) => {
         healthWellness: initialParticipantState.healthWellness,
         financial: initialParticipantState.financial,
         careerPlanning: initialParticipantState.careerPlanning,
-        dailyActivityLog: []
+        dailyActivityLog: [],
+        training: initialParticipantState.training
       };
       
       const { data, error } = await supabase.from('participants').insert([{
@@ -208,8 +239,9 @@ export const AppProvider = ({ children }) => {
         employmentReadiness: targetUser.employmentReadiness,
         healthWellness: targetUser.healthWellness,
         financial: targetUser.financial,
-        careerPlanning: targetUser.careerPlanning,
-        dailyActivityLog: targetUser.dailyActivityLog,
+        careerPlanning: targetUser.careerPlanning || initialParticipantState.careerPlanning,
+        dailyActivityLog: targetUser.dailyActivityLog || [],
+        training: targetUser.training || initialParticipantState.training,
       };
 
       // Apply updates to the payload
