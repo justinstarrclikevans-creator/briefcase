@@ -100,7 +100,8 @@ const initialParticipantState = {
 };
 
 export const AppProvider = ({ children }) => {
-  const [participants, setParticipants] = useState([]);
+  const [participants, setParticipantsState] = useState([]);
+  const latestStateRef = React.useRef({}); // Tracks latest state synchronously to prevent race conditions
   const [currentUserId, setCurrentUserId] = useState(() => {
     return localStorage.getItem('briefcase_currentUser') || null;
   });
@@ -130,7 +131,10 @@ export const AppProvider = ({ children }) => {
         training: { ...initialParticipantState.training, ...(p.state_data.training || {}) },
         dailyActivityLog: p.state_data.dailyActivityLog || []
       }));
-      setParticipants(mapped);
+      mapped.forEach(p => {
+        latestStateRef.current[p.id] = p;
+      });
+      setParticipantsState(mapped);
     } else {
       console.error("Error fetching participants:", error);
     }
@@ -192,7 +196,8 @@ export const AppProvider = ({ children }) => {
           lastLogin: p.last_login,
           ...p.state_data
         };
-        setParticipants([...participants, newParticipant]);
+        latestStateRef.current[p.id] = newParticipant;
+        setParticipantsState([...participants, newParticipant]);
         setCurrentUserId(p.id);
         return { success: true };
       } else {
@@ -209,7 +214,8 @@ export const AppProvider = ({ children }) => {
 
   const removeParticipant = async (id) => {
     await supabase.from('participants').delete().eq('id', id);
-    setParticipants(participants.filter(p => p.id !== id));
+    delete latestStateRef.current[id];
+    setParticipantsState(participants.filter(p => p.id !== id));
     if (currentUserId === id) {
       logout();
     }
@@ -217,37 +223,22 @@ export const AppProvider = ({ children }) => {
 
   // Internal updater that syncs with Supabase
   const updateParticipant = async (id, rootUpdates, stateDataUpdates, isLogin = false) => {
-    // 1. Update local state immediately for fast UI
-    setParticipants(prev => prev.map(p => {
-      if (p.id === id) {
-        const updated = { ...p, ...rootUpdates };
-        if (stateDataUpdates) {
-          Object.keys(stateDataUpdates).forEach(key => {
-            updated[key] = stateDataUpdates[key];
-          });
-        }
-        return updated;
-      }
-      return p;
-    }));
+    const targetUser = latestStateRef.current[id];
+    if (!targetUser) return;
 
-    // 2. Sync to Supabase
-    const dbUpdates = {};
-    if (rootUpdates?.goal90Day !== undefined) dbUpdates.goal_90_day = rootUpdates.goal90Day;
-    if (rootUpdates?.lastLogin !== undefined) dbUpdates.last_login = rootUpdates.lastLogin;
+    // 1. Synchronously apply updates to the ref to prevent race conditions
+    const nextUser = { ...targetUser, ...rootUpdates };
     
-    // For nested JSON state data, we need the full current stateData object
+    let newStateData = null;
     if (stateDataUpdates && !isLogin) {
-      const targetUser = participants.find(p => p.id === id) || currentUser;
-      
-      const newStateData = {
-        coreStability: targetUser.coreStability,
-        employmentReadiness: targetUser.employmentReadiness,
-        healthWellness: targetUser.healthWellness,
-        financial: targetUser.financial,
-        careerPlanning: targetUser.careerPlanning || initialParticipantState.careerPlanning,
-        dailyActivityLog: targetUser.dailyActivityLog || [],
-        training: targetUser.training || initialParticipantState.training,
+      newStateData = {
+        coreStability: nextUser.coreStability,
+        employmentReadiness: nextUser.employmentReadiness,
+        healthWellness: nextUser.healthWellness,
+        financial: nextUser.financial,
+        careerPlanning: nextUser.careerPlanning || initialParticipantState.careerPlanning,
+        dailyActivityLog: nextUser.dailyActivityLog || [],
+        training: nextUser.training || initialParticipantState.training,
       };
 
       // Apply updates to the payload
@@ -255,17 +246,35 @@ export const AppProvider = ({ children }) => {
         newStateData[key] = stateDataUpdates[key];
       });
 
-      dbUpdates.state_data = newStateData;
+      // Update the nextUser with the new sections
+      Object.keys(newStateData).forEach(key => {
+        nextUser[key] = newStateData[key];
+      });
     }
+
+    latestStateRef.current[id] = nextUser;
+
+    // 2. Update React state for the UI
+    setParticipantsState(prev => prev.map(p => p.id === id ? nextUser : p));
+
+    // 3. Sync to Supabase
+    const dbUpdates = {};
+    if (rootUpdates?.goal90Day !== undefined) dbUpdates.goal_90_day = nextUser.goal90Day;
+    if (rootUpdates?.lastLogin !== undefined) dbUpdates.last_login = nextUser.lastLogin;
+    if (newStateData) dbUpdates.state_data = newStateData;
 
     await supabase.from('participants').update(dbUpdates).eq('id', id);
   };
 
   const updateSection = (sectionName, updates, logMessage) => {
     if (!currentUser) return;
+    
+    const targetUser = latestStateRef.current[currentUser.id];
+    if (!targetUser) return;
+
     const newStateDataUpdate = {
       [sectionName]: {
-        ...currentUser[sectionName],
+        ...targetUser[sectionName],
         ...updates
       }
     };
@@ -276,7 +285,7 @@ export const AppProvider = ({ children }) => {
       const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
       const logEntry = { date: today, activity: `[${time}] ${logMessage}`, timestamp: new Date().toISOString() };
       dailyLogUpdate = {
-        dailyActivityLog: [...currentUser.dailyActivityLog, logEntry]
+        dailyActivityLog: [...(targetUser.dailyActivityLog || []), logEntry]
       };
     }
 
@@ -288,11 +297,12 @@ export const AppProvider = ({ children }) => {
 
   const logActivity = (activityDescription) => {
     if (!currentUser) return;
+    const targetUser = latestStateRef.current[currentUser.id];
     const today = new Date().toISOString().split('T')[0];
     const logEntry = { date: today, activity: activityDescription, timestamp: new Date().toISOString() };
     
     updateParticipant(currentUser.id, null, {
-      dailyActivityLog: [...currentUser.dailyActivityLog, logEntry]
+      dailyActivityLog: [...(targetUser.dailyActivityLog || []), logEntry]
     });
   };
 
