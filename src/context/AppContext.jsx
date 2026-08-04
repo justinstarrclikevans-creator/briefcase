@@ -106,6 +106,7 @@ export const AppProvider = ({ children }) => {
     return localStorage.getItem('briefcase_currentUser') || null;
   });
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
 
   // Fetch all participants on mount
   useEffect(() => {
@@ -135,8 +136,10 @@ export const AppProvider = ({ children }) => {
         latestStateRef.current[p.id] = p;
       });
       setParticipantsState(mapped);
+      setFetchError(false);
     } else {
       console.error("Error fetching participants:", error);
+      setFetchError(true);
     }
     setLoading(false);
   };
@@ -152,10 +155,18 @@ export const AppProvider = ({ children }) => {
   const currentUser = participants.find(p => p.id === currentUserId);
 
   const login = async (firstName, lastName, location) => {
+    if (fetchError) {
+      return { success: false, error: "Cannot connect to the database right now. Please refresh the page and try again." };
+    }
+
+    const fName = firstName.trim().toLowerCase();
+    const lName = lastName.trim().toLowerCase();
+    const loc = location.trim().toLowerCase();
+
     let existing = participants.find(
-      p => p.firstName.toLowerCase() === firstName.toLowerCase() && 
-           p.lastName.toLowerCase() === lastName.toLowerCase() &&
-           p.location.toLowerCase() === location.toLowerCase()
+      p => p.firstName.toLowerCase().trim() === fName && 
+           p.lastName.toLowerCase().trim() === lName &&
+           p.location.toLowerCase().trim() === loc
     );
 
     if (existing) {
@@ -174,9 +185,9 @@ export const AppProvider = ({ children }) => {
       };
       
       const { data, error } = await supabase.from('participants').insert([{
-        first_name: firstName,
-        last_name: lastName,
-        location: location,
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        location: location.trim(),
         state_data: stateData
       }]).select();
 
