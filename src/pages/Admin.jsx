@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { Lock, Trash2, MapPin, ArrowLeft } from 'lucide-react';
+import { Lock, Trash2, MapPin, ArrowLeft, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Admin = () => {
@@ -96,11 +96,53 @@ const Admin = () => {
     return `${completed}/${total}`;
   };
 
+  const exportToCSV = () => {
+    const headers = ['First Name', 'Last Name', 'Location', '90-Day Goal', 'Outstanding Needs', 'Legal Requirements', 'Training Progress', 'Housing Plan', 'Transportation Plan', 'Last Login'];
+    
+    const rows = participants.map(user => {
+      const needs = getMissingNeeds(user).join('; ');
+      const legal = getActiveLegalReqs(user).join('; ');
+      const training = getTrainingProgress(user);
+      const housing = (user.coreStability?.housingPlan || '').replace(/"/g, '""');
+      const transport = (user.coreStability?.transportationPlan || '').replace(/"/g, '""');
+      const goal = (user.goal90Day || '').replace(/"/g, '""');
+      const lastLogin = user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never';
+      
+      return [
+        `"${user.firstName || ''}"`,
+        `"${user.lastName || ''}"`,
+        `"${user.location || ''}"`,
+        `"${goal}"`,
+        `"${needs}"`,
+        `"${legal}"`,
+        `"${training}"`,
+        `"${housing}"`,
+        `"${transport}"`,
+        `"${lastLogin}"`
+      ].join(',');
+    });
+    
+    const csvContent = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `Briefcase_Export_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="page-container animate-fade-in">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ color: 'var(--primary)' }}>Daily Report</h1>
-        <button className="btn-secondary" onClick={() => setIsAuthenticated(false)}>Lock</button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <h1 style={{ color: 'var(--primary)', margin: 0 }}>Daily Report</h1>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button className="btn-primary" onClick={exportToCSV} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Download size={18} /> Export to CSV
+          </button>
+          <button className="btn-secondary" onClick={() => setIsAuthenticated(false)}>Lock</button>
+        </div>
       </div>
       
       {Object.keys(groupedByLocation).length === 0 ? (
