@@ -96,7 +96,8 @@ const initialParticipantState = {
     digitalAi: false,
     forkliftExternal: false,
     osha10External: false
-  }
+  },
+  wo_progress: {}
 };
 
 export const AppProvider = ({ children }) => {
@@ -130,7 +131,8 @@ export const AppProvider = ({ children }) => {
         financial: { ...initialParticipantState.financial, ...(p.state_data.financial || {}) },
         careerPlanning: { ...initialParticipantState.careerPlanning, ...(p.state_data.careerPlanning || {}) },
         training: { ...initialParticipantState.training, ...(p.state_data.training || {}) },
-        dailyActivityLog: p.state_data.dailyActivityLog || []
+        dailyActivityLog: p.state_data.dailyActivityLog || [],
+        wo_progress: p.state_data.wo_progress || {}
       }));
       mapped.forEach(p => {
         latestStateRef.current[p.id] = p;
@@ -181,7 +183,8 @@ export const AppProvider = ({ children }) => {
         financial: initialParticipantState.financial,
         careerPlanning: initialParticipantState.careerPlanning,
         dailyActivityLog: [],
-        training: initialParticipantState.training
+        training: initialParticipantState.training,
+        wo_progress: {}
       };
       
       const { data, error } = await supabase.from('participants').insert([{
@@ -250,6 +253,7 @@ export const AppProvider = ({ children }) => {
         careerPlanning: nextUser.careerPlanning || initialParticipantState.careerPlanning,
         dailyActivityLog: nextUser.dailyActivityLog || [],
         training: nextUser.training || initialParticipantState.training,
+        wo_progress: nextUser.wo_progress || {}
       };
 
       // Apply updates to the payload
@@ -324,6 +328,78 @@ export const AppProvider = ({ children }) => {
     }
   }
 
+  // --- TRADES WORKORDERS SYNC ---
+  const getWorkorderProgress = (workorderNum) => {
+    if (!currentUser) return {
+      answers: { a1: '', a2: '', a3: '' },
+      stepsCompleted: [],
+      signoffChecked: [],
+      status: 'not_started',
+      submittedAt: null,
+      approvedAt: null,
+      approvedBy: null
+    };
+    const woProgress = currentUser.wo_progress || {};
+    return woProgress[workorderNum] || {
+      answers: { a1: '', a2: '', a3: '' },
+      stepsCompleted: [],
+      signoffChecked: [],
+      status: 'not_started',
+      submittedAt: null,
+      approvedAt: null,
+      approvedBy: null
+    };
+  };
+
+  const saveWorkorderProgress = async (workorderNum, progressData) => {
+    if (!currentUser) return;
+    await updateSection('wo_progress', { [workorderNum]: progressData });
+  };
+
+  const submitWorkorder = async (workorderNum, answers, stepsCompleted, signoffChecked) => {
+    const progress = {
+      answers,
+      stepsCompleted,
+      signoffChecked,
+      status: 'submitted',
+      submittedAt: new Date().toISOString(),
+      approvedAt: null,
+      approvedBy: null
+    };
+    await saveWorkorderProgress(workorderNum, progress);
+    return progress;
+  };
+
+  const approveWorkorder = async (userId, workorderNum, pmName) => {
+    const targetUser = latestStateRef.current[userId];
+    if (!targetUser) return;
+    const current = (targetUser.wo_progress || {})[workorderNum] || {};
+    const updated = {
+      ...current,
+      status: 'approved',
+      approvedAt: new Date().toISOString(),
+      approvedBy: pmName
+    };
+    const updatedWoProgress = {
+      ...(targetUser.wo_progress || {}),
+      [workorderNum]: updated
+    };
+    await updateParticipant(userId, null, { wo_progress: updatedWoProgress });
+  };
+
+  const getAllParticipantsProgress = () => {
+    return participants.map(p => ({
+      user: {
+        id: p.id,
+        name: `${p.firstName} ${p.lastName}`,
+        location: p.location,
+        lastLogin: p.lastLogin
+      },
+      workorders: p.wo_progress || {},
+      coreStability: p.coreStability || { completedItems: [], missingItems: [] }
+    }));
+  };
+
   return (
     <AppContext.Provider value={{
       participants,
@@ -335,7 +411,14 @@ export const AppProvider = ({ children }) => {
       updateParticipant: (id, updates) => updateParticipant(id, updates, null),
       updateGoal,
       updateSection,
-      logActivity
+      logActivity,
+      // Trades Curriculum exports
+      getWorkorderProgress,
+      saveWorkorderProgress,
+      submitWorkorder,
+      approveWorkorder,
+      getAllParticipantsProgress,
+      getCloudState: async () => { await fetchParticipants(); }
     }}>
       {!loading && children}
     </AppContext.Provider>

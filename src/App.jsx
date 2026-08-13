@@ -11,6 +11,9 @@ import Financial from './pages/Financial';
 import CareerPlanning from './pages/CareerPlanning';
 import Training from './pages/Training';
 import Admin from './pages/Admin';
+import CurriculumPortal from './pages/CurriculumPortal';
+import ResumeBuilder from './pages/ResumeBuilder';
+import SessionReview from './pages/SessionReview';
 
 const App = () => {
   return (
@@ -27,6 +30,9 @@ const App = () => {
             <Route path="/financial" element={<Financial />} />
             <Route path="/career-planning" element={<CareerPlanning />} />
             <Route path="/training" element={<Training />} />
+            <Route path="/curriculum" element={<CurriculumPortal />} />
+            <Route path="/resume-builder" element={<ResumeBuilder />} />
+            <Route path="/session-review" element={<SessionReview />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

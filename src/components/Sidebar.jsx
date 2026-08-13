@@ -8,7 +8,9 @@ import {
   DollarSign, 
   Map, 
   FileText,
-  Wrench
+  Wrench,
+  Laptop,
+  Clock
 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
@@ -24,6 +26,9 @@ const Sidebar = () => {
     { to: '/health-wellness', icon: <HeartPulse size={20} />, label: 'Health & Wellness' },
     { to: '/financial', icon: <DollarSign size={20} />, label: 'Financial' },
     { to: '/training', icon: <Wrench size={20} />, label: 'Training Modules' },
+    { to: '/curriculum', icon: <Laptop size={20} />, label: 'Trades Curriculum' },
+    { to: '/resume-builder', icon: <FileText size={20} />, label: 'Resume Builder' },
+    { to: '/session-review', icon: <Clock size={20} />, label: 'Daily Review' },
     { to: '/career-planning', icon: <Map size={20} />, label: 'Career Planning' }
   ];
 
