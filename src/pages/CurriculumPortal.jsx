@@ -39,9 +39,9 @@ export default function CurriculumPortal() {
     const syncState = async () => {
       if (user && selectedWorkorder) {
         setLoadingState(true);
-        await getCloudState(user.id);
+        await getCloudState();
         
-        const progress = getWorkorderProgress(user.id, selectedWorkorder.num);
+        const progress = getWorkorderProgress(selectedWorkorder.num);
         setAnswers(progress.answers || { a1: '', a2: '', a3: '' });
         setStepsCompleted(progress.stepsCompleted || []);
         setSignoffChecked(progress.signoffChecked || []);
@@ -55,7 +55,7 @@ export default function CurriculumPortal() {
       }
     };
     syncState();
-  }, [user, selectedWorkorder]);
+  }, [user?.id, selectedWorkorder?.num]);
 
   const handleSaveDraft = async () => {
     if (!user || !selectedWorkorder) return;
@@ -71,7 +71,7 @@ export default function CurriculumPortal() {
       approvedBy: approvedDetails?.approvedBy || null
     };
     
-    await saveWorkorderProgress(user.id, selectedWorkorder.num, progress);
+    await saveWorkorderProgress(selectedWorkorder.num, progress);
     setStatus(progress.status);
     showNotification('Draft saved successfully in the cloud.');
   };
@@ -95,11 +95,11 @@ export default function CurriculumPortal() {
       return;
     }
 
-    const updated = await submitWorkorder(user.id, selectedWorkorder.num, answers, stepsCompleted, signoffChecked);
+    const updated = await submitWorkorder(selectedWorkorder.num, answers, stepsCompleted, signoffChecked);
     // Persist custom youtube ID if any
     if (customYoutubeId) {
       updated.customYoutubeId = customYoutubeId;
-      await saveWorkorderProgress(user.id, selectedWorkorder.num, updated);
+      await saveWorkorderProgress(selectedWorkorder.num, updated);
     }
 
     setStatus('submitted');
@@ -148,7 +148,7 @@ export default function CurriculumPortal() {
     const wos = WORKORDERS.filter(w => w.station === stationId);
     let completedCount = 0;
     for (const wo of wos) {
-      const p = getWorkorderProgress(user.id, wo.num);
+      const p = getWorkorderProgress(wo.num);
       if (p.status === 'approved') completedCount++;
     }
     return `${completedCount}/${wos.length}`;
@@ -230,7 +230,7 @@ export default function CurriculumPortal() {
               
               <div className="grid grid-cols-1 gap-md">
                 {stationWorkorders.map(wo => {
-                  const p = getWorkorderProgress(user.id, wo.num);
+                  const p = getWorkorderProgress(wo.num);
                   const isApproved = p.status === 'approved';
                   const isSubmitted = p.status === 'submitted';
                   const isInProgress = p.status === 'in_progress';
