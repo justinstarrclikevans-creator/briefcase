@@ -104,10 +104,10 @@ export default function ProgressReport() {
         </button>
       </div>
 
-      <div className="print-area glass-panel" style={{ padding: '3rem', backgroundColor: 'white', color: 'black' }}>
-        <div style={{ borderBottom: '2px solid #eee', paddingBottom: '1.5rem', marginBottom: '2rem', textAlign: 'center' }}>
-          <h1 style={{ margin: 0, fontSize: '2.5rem', color: '#111' }}>{currentUser.firstName} {currentUser.lastName}</h1>
-          <p style={{ margin: '0.5rem 0 0 0', color: '#666', fontSize: '1.1rem' }}>
+      <div className="print-area glass-panel" style={{ padding: '3rem', backgroundColor: 'var(--bg-card)', color: 'var(--text-main)' }}>
+        <div style={{ borderBottom: '2px solid var(--border-color)', paddingBottom: '1.5rem', marginBottom: '2rem', textAlign: 'center' }}>
+          <h1 style={{ margin: 0, fontSize: '2.5rem', color: 'var(--text-main)' }}>{currentUser.firstName} {currentUser.lastName}</h1>
+          <p style={{ margin: '0.5rem 0 0 0', color: 'var(--text-muted)', fontSize: '1.1rem' }}>
             Personal Progress & Priority Report &bull; {new Date().toLocaleDateString()}
           </p>
         </div>
@@ -135,27 +135,27 @@ export default function ProgressReport() {
         <div className="grid grid-cols-2 gap-xl">
           {reportData.map((section, idx) => (
             <div key={idx} style={{ marginBottom: '1.5rem' }}>
-              <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '2px solid #eee', paddingBottom: '0.5rem', color: '#333' }}>
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '2px solid var(--border-color)', paddingBottom: '0.5rem', color: 'var(--text-main)' }}>
                 <span style={{ color: 'var(--primary)' }}>{section.icon}</span> {section.title}
               </h3>
               
               <div style={{ marginTop: '1rem' }}>
-                <strong style={{ color: '#059669', display: 'block', marginBottom: '0.5rem' }}>Completed ✓</strong>
+                <strong style={{ color: 'var(--success)', display: 'block', marginBottom: '0.5rem' }}>Completed ✓</strong>
                 {section.completed.length > 0 ? (
-                  <ul style={{ paddingLeft: '1.5rem', color: '#444', marginBottom: '1rem' }}>
+                  <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-main)', marginBottom: '1rem' }}>
                     {section.completed.map((item, i) => <li key={i}>{item}</li>)}
                   </ul>
                 ) : (
-                  <p style={{ color: '#999', fontStyle: 'italic', margin: '0 0 1rem 0' }}>None yet</p>
+                  <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', margin: '0 0 1rem 0' }}>None yet</p>
                 )}
 
-                <strong style={{ color: '#dc2626', display: 'block', marginBottom: '0.5rem' }}>Incomplete ◯</strong>
+                <strong style={{ color: 'var(--danger)', display: 'block', marginBottom: '0.5rem' }}>Incomplete ◯</strong>
                 {section.incomplete.length > 0 ? (
-                  <ul style={{ paddingLeft: '1.5rem', color: '#444' }}>
+                  <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-main)' }}>
                     {section.incomplete.map((item, i) => <li key={i}>{item}</li>)}
                   </ul>
                 ) : (
-                  <p style={{ color: '#999', fontStyle: 'italic', margin: 0 }}>All items completed!</p>
+                  <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', margin: 0 }}>All items completed!</p>
                 )}
               </div>
             </div>

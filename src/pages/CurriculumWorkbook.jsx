@@ -3,14 +3,15 @@ import { WORKORDERS, STATIONS } from '../data/curriculumData';
 
 export default function CurriculumWorkbook() {
   return (
-    <div style={{ backgroundColor: 'white', color: 'black', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-main)', minHeight: '100vh' }}>
       {/* Print styles */}
       <style>{`
         @media print {
-          body { background-color: white !important; }
+          body, .workbook-container { background-color: white !important; color: black !important; }
           .page-break { page-break-after: always; }
           .no-print { display: none !important; }
           .print-header { margin-top: 0 !important; padding-top: 0 !important; }
+          * { color: black !important; border-color: black !important; }
         }
         .workbook-container {
           max-width: 800px;
@@ -19,7 +20,7 @@ export default function CurriculumWorkbook() {
           font-family: serif;
         }
         .wo-header {
-          border-bottom: 2px solid black;
+          border-bottom: 2px solid var(--text-main);
           padding-bottom: 1rem;
           margin-bottom: 1.5rem;
         }
@@ -33,24 +34,24 @@ export default function CurriculumWorkbook() {
           display: inline-block;
           width: 16px;
           height: 16px;
-          border: 1px solid black;
+          border: 1px solid var(--text-main);
           margin-right: 8px;
           vertical-align: middle;
         }
       `}</style>
 
-      <div className="no-print" style={{ padding: '1rem', backgroundColor: '#f0f0f0', textAlign: 'center', borderBottom: '1px solid #ccc' }}>
-        <button onClick={() => window.print()} style={{ padding: '0.5rem 1rem', fontSize: '1rem', cursor: 'pointer', backgroundColor: '#4f46e5', color: 'white', border: 'none', borderRadius: '4px' }}>
+      <div className="no-print" style={{ padding: '1rem', backgroundColor: 'var(--bg-card)', textAlign: 'center', borderBottom: '1px solid var(--border-color)' }}>
+        <button onClick={() => window.print()} style={{ padding: '0.5rem 1rem', fontSize: '1rem', cursor: 'pointer', backgroundColor: 'var(--primary)', color: 'white', border: 'none', borderRadius: '4px' }}>
           Print Workbook
         </button>
-        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: '#666' }}>Tip: In your print dialog, choose "Save as PDF" or select your printer. Check "Background graphics" if necessary.</p>
+        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Tip: In your print dialog, choose "Save as PDF" or select your printer. Check "Background graphics" if necessary.</p>
       </div>
 
       <div className="workbook-container">
         {/* Cover Page */}
         <div className="page-break" style={{ textAlign: 'center', paddingTop: '30vh' }}>
           <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Trades Curriculum Workbook</h1>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'normal', color: '#555' }}>90 Core Competency Workorders</h2>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'normal', color: 'var(--text-muted)' }}>90 Core Competency Workorders</h2>
           
           <div style={{ marginTop: '5rem', textAlign: 'left', width: '300px', margin: '5rem auto 0 auto' }}>
             <p><strong>Participant Name:</strong></p>
@@ -68,14 +69,14 @@ export default function CurriculumWorkbook() {
               <div className="wo-header">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                   <div>
-                    <span style={{ fontSize: '1rem', fontWeight: 'bold', textTransform: 'uppercase', color: '#555' }}>
+                    <span style={{ fontSize: '1rem', fontWeight: 'bold', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
                       Workstation: {station?.name}
                     </span>
                     <h2 style={{ margin: '0.25rem 0 0 0', fontSize: '1.8rem' }}>
                       WO #{wo.num}: {wo.title}
                     </h2>
                   </div>
-                  <div style={{ border: '2px solid black', padding: '0.5rem', textAlign: 'center', minWidth: '100px' }}>
+                  <div style={{ border: '2px solid var(--text-main)', padding: '0.5rem', textAlign: 'center', minWidth: '100px' }}>
                     <div style={{ fontSize: '0.7rem', textTransform: 'uppercase' }}>Date Completed</div>
                     <div style={{ height: '20px' }}></div>
                   </div>
@@ -84,7 +85,7 @@ export default function CurriculumWorkbook() {
 
               {/* Theory */}
               <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{ fontSize: '1.2rem', backgroundColor: '#eee', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>1. Theory & Safety</h3>
+                <h3 style={{ fontSize: '1.2rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>1. Theory & Safety</h3>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <div>
@@ -108,26 +109,26 @@ export default function CurriculumWorkbook() {
 
               {/* Research */}
               <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{ fontSize: '1.2rem', backgroundColor: '#eee', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>2. Research Questions</h3>
+                <h3 style={{ fontSize: '1.2rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>2. Research Questions</h3>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div>
                     <strong>Q1: {wo.q1}</strong>
-                    <div style={{ fontSize: '0.85rem', color: '#666', fontStyle: 'italic', marginBottom: '0.5rem' }}>Search keyword: {wo.p1}</div>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '0.5rem' }}>Search keyword: {wo.p1}</div>
                     <div className="blank-lines"></div>
                     <div className="blank-lines"></div>
                     <div className="blank-lines"></div>
                   </div>
                   <div>
                     <strong>Q2: {wo.q2}</strong>
-                    <div style={{ fontSize: '0.85rem', color: '#666', fontStyle: 'italic', marginBottom: '0.5rem' }}>Search keyword: {wo.p2}</div>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '0.5rem' }}>Search keyword: {wo.p2}</div>
                     <div className="blank-lines"></div>
                     <div className="blank-lines"></div>
                     <div className="blank-lines"></div>
                   </div>
                   <div>
                     <strong>Q3: {wo.q3}</strong>
-                    <div style={{ fontSize: '0.85rem', color: '#666', fontStyle: 'italic', marginBottom: '0.5rem' }}>Search keyword: {wo.p3}</div>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: '0.5rem' }}>Search keyword: {wo.p3}</div>
                     <div className="blank-lines"></div>
                     <div className="blank-lines"></div>
                     <div className="blank-lines"></div>
@@ -137,7 +138,7 @@ export default function CurriculumWorkbook() {
 
               {/* Steps */}
               <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{ fontSize: '1.2rem', backgroundColor: '#eee', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>3. Hands-On Activity</h3>
+                <h3 style={{ fontSize: '1.2rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>3. Hands-On Activity</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {wo.steps.map((step, idx) => (
                     <div key={idx} style={{ display: 'flex', alignItems: 'flex-start' }}>
@@ -150,7 +151,7 @@ export default function CurriculumWorkbook() {
 
               {/* Signoff */}
               <div>
-                <h3 style={{ fontSize: '1.2rem', backgroundColor: '#eee', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>4. Quality & Sign-Off</h3>
+                <h3 style={{ fontSize: '1.2rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem 0.5rem', display: 'inline-block', margin: '0 0 1rem 0' }}>4. Quality & Sign-Off</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   {wo.signoff.map((sign, idx) => (
                     <div key={idx} style={{ display: 'flex', alignItems: 'flex-start' }}>

@@ -346,11 +346,11 @@ export default function CurriculumPortal() {
               <div className="flex-col gap-lg animate-fadeIn" style={{ marginTop: '1.5rem' }}>
                 <div className="grid grid-cols-2 gap-lg">
                   <div className="flex-col gap-sm" style={{ background: 'rgba(0,0,0,0.05)', padding: '1.25rem', borderRadius: '8px' }}>
-                    <h3 style={{ color: 'var(--accent-primary)', margin: 0 }}>Technical Overview</h3>
+                    <h3 style={{ color: 'var(--primary)', margin: 0 }}>Technical Overview</h3>
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{selectedWorkorder.studySheet.overview}</p>
                   </div>
                   <div className="flex-col gap-sm" style={{ background: 'rgba(0,0,0,0.05)', padding: '1.25rem', borderRadius: '8px' }}>
-                    <h3 style={{ color: 'var(--accent-primary)', margin: 0 }}>Key Technical Concepts</h3>
+                    <h3 style={{ color: 'var(--primary)', margin: 0 }}>Key Technical Concepts</h3>
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{selectedWorkorder.studySheet.keyConcepts}</p>
                   </div>
                 </div>
@@ -361,7 +361,7 @@ export default function CurriculumPortal() {
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{selectedWorkorder.studySheet.codesSafety}</p>
                   </div>
                   <div className="flex-col gap-sm" style={{ background: 'rgba(0,0,0,0.05)', padding: '1.25rem', borderRadius: '8px' }}>
-                    <h3 style={{ color: 'var(--accent-primary)', margin: 0 }}>Practical Operational Guidelines</h3>
+                    <h3 style={{ color: 'var(--primary)', margin: 0 }}>Practical Operational Guidelines</h3>
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{selectedWorkorder.studySheet.guidelines}</p>
                   </div>
                 </div>
@@ -468,7 +468,7 @@ export default function CurriculumPortal() {
                                   {isChecked && <Check size={12} color="white" />}
                                 </div>
                               </div>
-                              <span style={{ fontSize: '0.925rem', textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--text-muted)' : 'var(--text-primary)' }}>
+                              <span style={{ fontSize: '0.925rem', textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--text-muted)' : 'var(--text-main)' }}>
                                 <strong>Step {idx + 1}:</strong> {step}
                               </span>
                             </div>

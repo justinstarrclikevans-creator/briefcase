@@ -253,13 +253,7 @@ const Admin = () => {
         >
           Trades Matrix
         </button>
-        <button 
-          className={activeTab === 'videos' ? 'btn-primary' : 'btn-secondary'}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.5rem 1rem', cursor: 'pointer' }}
-          onClick={() => setActiveTab('videos')}
-        >
-          Manage Videos
-        </button>
+
       </div>
 
       {/* TAB 1: BRIEFCASE REPORTS */}
@@ -547,80 +541,7 @@ const Admin = () => {
         </div>
       )}
       
-      {/* TAB 4: MANAGE VIDEOS */}
-      {activeTab === 'videos' && (
-        <div className="glass-card animate-fade-in" style={{ padding: '1.5rem', border: '1px solid var(--border-color)' }}>
-          <h2 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary)' }}>Global Curriculum Videos</h2>
-          <p style={{ margin: '0 0 1.5rem 0', fontSize: '0.9rem', color: 'var(--text-muted)' }}>Paste YouTube links below to override the default videos for all participants.</p>
-          
-          {notification && (
-            <div style={{ background: 'var(--success)', color: 'white', padding: '0.75rem', borderRadius: '6px', marginBottom: '1rem', textAlign: 'center' }}>
-              {notification}
-            </div>
-          )}
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {WORKORDERS.map(wo => {
-              const currentVideo = globalSettings.videoOverrides?.[wo.num] || wo.youtubeId;
-              const inputValue = videoInputStates[wo.num] !== undefined ? videoInputStates[wo.num] : `https://youtu.be/${currentVideo}`;
-
-              const handleSaveVideo = async (woNum) => {
-                let id = videoInputStates[woNum];
-                if (!id) return;
-                
-                // Extract video ID from any URL format
-                const match = id.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-                const finalId = match ? match[1] : (id.length === 11 ? id : null);
-                
-                if (finalId) {
-                  await updateGlobalSettings({
-                    videoOverrides: {
-                      ...(globalSettings.videoOverrides || {}),
-                      [woNum]: finalId
-                    }
-                  });
-                  showNotification(`Video updated for Workorder #${woNum}`);
-                } else {
-                  alert('Invalid YouTube URL or ID.');
-                }
-              };
-
-              return (
-                <div key={wo.num} style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '1.5rem', padding: '1.5rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                  <div>
-                    <strong style={{ display: 'block', fontSize: '1.1rem', marginBottom: '0.25rem' }}>WO #{wo.num}: {wo.title}</strong>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{STATIONS.find(s => s.id === wo.station)?.name}</span>
-                    <div style={{ marginTop: '1rem', borderRadius: '8px', overflow: 'hidden' }}>
-                      <iframe 
-                        width="100%" 
-                        height="160" 
-                        src={`https://www.youtube.com/embed/${currentVideo}`}
-                        frameBorder="0" 
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '1rem' }}>
-                    <label style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Update YouTube Video URL:</label>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <input 
-                        type="text" 
-                        className="input-field" 
-                        placeholder="Paste YouTube Link (e.g. https://youtu.be/...)"
-                        value={inputValue}
-                        onChange={(e) => setVideoInputStates({ ...videoInputStates, [wo.num]: e.target.value })}
-                        style={{ flex: 1 }}
-                      />
-                      <button className="btn-primary" onClick={() => handleSaveVideo(wo.num)}>Save</button>
-                    </div>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Changes here apply instantly to all participants.</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
