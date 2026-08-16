@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { VIDEOS } from '../config/videos';
-import { PlayCircle, CheckCircle, Hammer, Wrench, HardHat, Tv, CheckSquare } from 'lucide-react';
+import { PlayCircle, CheckCircle, Hammer, Wrench, HardHat, Tv, CheckSquare, Sparkles } from 'lucide-react';
 import VideoModal from '../components/VideoModal';
+import PhoneSimulator from '../components/DigitalSimulations/PhoneSimulator';
 
 const Training = () => {
   const { currentUser, updateSection } = useAppContext();
@@ -10,7 +11,7 @@ const Training = () => {
   const [activeTab, setActiveTab] = useState('basics');
 
   if (!currentUser) return null;
-  const data = currentUser.training;
+  const data = currentUser.training || {};
 
   const handleCheck = (field) => {
     updateSection('training', { [field]: !data[field] }, `Updated external training: ${field}`);
@@ -38,6 +39,7 @@ const Training = () => {
     { id: 'welding', label: 'Welding', icon: <HardHat size={18} /> },
     { id: 'hvac', label: 'HVAC', icon: <Wrench size={18} /> },
     { id: 'digital', label: 'Digital Literacy', icon: <Tv size={18} /> },
+    { id: 'ai', label: 'AI Training', icon: <Sparkles size={18} /> },
     { id: 'external', label: 'External Certs', icon: <CheckSquare size={18} /> }
   ];
 
@@ -114,11 +116,34 @@ const Training = () => {
         )}
 
         {activeTab === 'digital' && (
-          <div>
-            <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Digital Literacy</h3>
-            {renderVideoList([
-              VIDEOS.digitalGmail, VIDEOS.digitalDocs, VIDEOS.digitalSheets, VIDEOS.digitalAi
-            ])}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+            <div>
+              <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Digital Literacy Videos</h3>
+              {renderVideoList([
+                VIDEOS.digitalGmail, VIDEOS.digitalDocs, VIDEOS.digitalSheets
+              ])}
+            </div>
+            <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '2rem' }}>
+              <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Interactive Practice</h3>
+              <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.9rem' }}>Use the simulator below to practice your digital skills on a simulated device.</p>
+              <PhoneSimulator />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'ai' && (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+            <div>
+              <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>AI Training Videos</h3>
+              {renderVideoList([
+                VIDEOS.digitalAi
+              ])}
+            </div>
+            <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '2rem' }}>
+              <h3 style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Interactive AI Practice</h3>
+              <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.9rem' }}>Use the simulator below, tap on "AI Chat", and practice communicating with an AI.</p>
+              <PhoneSimulator />
+            </div>
           </div>
         )}
 

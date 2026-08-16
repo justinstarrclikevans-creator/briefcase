@@ -96,6 +96,11 @@ const initialParticipantState = {
     digitalDocs: false,
     digitalSheets: false,
     digitalAi: false,
+    simPhone: false,
+    simGmail: false,
+    simDocs: false,
+    simSheets: false,
+    simAi: false,
     forkliftExternal: false,
     osha10External: false
   },
