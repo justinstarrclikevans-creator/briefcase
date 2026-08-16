@@ -17,7 +17,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 1, station: 'safety', title: 'OSHA Basics & Facility Hazard Sweep',
-    youtubeId: 'eKUEZY3R3cI', // Sample YouTube Video ID
+    youtubeId: '', // Sample YouTube Video ID
     studySheet: {
       overview: "The Occupational Safety and Health Administration (OSHA) was established under the OSH Act of 1970 to assure safe and healthful working conditions by setting and enforcing standards. The bedrock of safety enforcement is the General Duty Clause (Section 5(a)(1)), which mandates that employers furnish a place of employment free from recognized hazards that cause or are likely to cause death or serious physical harm.",
       keyConcepts: "Facility sweeps are systematic walk-throughs designed to identify and eliminate safety violations before they lead to workplace injuries. Key safety hazards include slips, trips, falls, blocked egress paths, exposed electrical wiring, and unlabelled chemicals. Tripping hazards account for a massive percentage of industrial claims and are easily mitigated by path audits.",
@@ -46,7 +46,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 2, station: 'drafting', title: 'Tape Measure Reading & Scale Math',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: 'DqKIVmu6grM',
     studySheet: {
       overview: "In trades, precision measurement is crucial to avoid material waste and structural failures. Standard tapes divide an inch down to 1/16th segments. Blueprints display scaled-down versions of rooms, requiring mathematical conversions to verify sizes.",
       keyConcepts: "A standard tape measure utilizes graduated marks of varying heights: the longest line indicates the whole inch, the next is 1/2\", followed by 1/4\", 1/8\", and the shortest is 1/16\". Stud markers appear every 16\" (red numbers) and truss diamonds appear at 19.2\" intervals to layout framing spacing.",
@@ -75,7 +75,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 3, station: 'precision', title: 'Reading Dial Calipers',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: 'hNjiX-OKiWQ',
     studySheet: {
       overview: "Dial calipers are precision engineering tools used to verify machining tolerances, fitting wall thicknesses, and tool blade profiles. They can measure outside diameters, inside bores, step heights, and hole depths down to 1/1000th of an inch (0.001\").",
       keyConcepts: "The main slide beam is graduated in whole tenths of an inch (0.100\"). The round dial dial-face contains 100 graduations, where each mark represents 0.001\". One full rotation of the dial needle equals 0.100\" on the slide beam. Inside measurements use the top pointed horns, while depth uses the rear sliding rod.",
@@ -104,7 +104,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 4, station: 'electrical', title: 'Romex Cable Stripping & Splicing',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: 'sLCxyD7xMFE',
     studySheet: {
       overview: "Romex is the trade name for non-metallic sheathed cable (Type NM), which is the standard wiring medium for residential wall outlets and switches. It bundles insulated conductors inside a flexible plastic jacket.",
       keyConcepts: "A standard 14/2 Romex cable contains a black wire (hot, transfers power), a white wire (neutral, completes return current path), and a bare copper wire (safety ground, routes stray currents to earth). Splicing joins wires using twist-on connectors (wire nuts) inside approved electrical junction boxes.",
@@ -133,7 +133,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 5, station: 'plumbing', title: 'Tracing Building Main Water Lines',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: '1SOtLlpKD8w',
     studySheet: {
       overview: "Potable water enters a building under high pressure from a municipal main. Tracing this system requires understanding key valves, meters, and pipe materials that direct and control flow throughout the building's infrastructure.",
       keyConcepts: "Potable water supply uses copper or PEX tubing. Copper pipe colors indicate wall thickness: Type K (thickest, green stripe, for underground supply), Type L (medium, blue stripe, for interior plumbing), and Type M (thinnest, red stripe, for low-pressure heat lines). Controls include shut-off ball valves (90-degree lever rotation, highly reliable) and gate valves (threaded screw stem, prone to seizing).",
@@ -162,7 +162,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 6, station: 'hvac', title: 'HVAC Filter Specifications & Benchtop Audits',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: '',
     studySheet: {
       overview: "Forced-air heating and cooling systems cycle air through a duct network to regulate indoor climates. A key component of this air handling process is the return air filter, which removes debris from the air stream to keep the blower motor clean.",
       keyConcepts: "Forced-air loops pull room air through high-volume return grilles, pass it through an air filter, heat or cool it at the indoor coil, and distribute it back through supply registers. Filters are rated by the MERV scale (Minimum Efficiency Reporting Value), from 1 (coarse fiberglass trapping lint) to 16 (fine pleats trapping viruses).",
@@ -191,7 +191,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 7, station: 'automotive', title: 'Engine Air Filter Inspection & Intake Audit',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '',
     studySheet: {
       overview: "Internal combustion engines operate by burning a mixture of fuel and air. For every gallon of gasoline burned, an engine consumes approximately 10,000 gallons of air. This air must be cleaned of dust, sand, and debris before entering the cylinders to prevent engine wear.",
       keyConcepts: "The air intake system consists of the intake duct, the air filter housing box (plenum), the filter element, and the intake manifold. The air filter element is composed of pleated paper or cotton media. Dirt and abrasive silica particles will act as sandpaper on cylinder walls if not filtered out, causing scoring and compression loss.",
@@ -220,7 +220,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 8, station: 'foamboard', title: 'Foam Board Cutting, Scoring & Folding',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: '',
     studySheet: {
       overview: "Foam board, composed of a polystyrene foam core sandwiched between two layers of paper, is a primary medium used for trade layouts, structural prototyping, and physical modeling. It is lightweight, clean, and requires no heavy saws.",
       keyConcepts: "Cutting foam board requires sharp utility blades. A dull blade drags and tears the core. Straight cuts require a metal straightedge to guide the blade. Scoring is a technique where the blade cuts only the top paper face and half the foam core, leaving the bottom backing paper intact. This creates a flexible hinge that can fold into clean, tight corners.",
@@ -247,7 +247,7 @@ export const WORKORDERS = [
   // WO 9
   {
     num: 9, station: 'electrical', title: 'MyHome Kit - Series & Parallel Circuits',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: '',
     studySheet: {
       overview: "Electric circuits are loops of conductive material that allow electrons to flow from a power source to loads and back. The physical layout of these loops determines how voltage and current are distributed.",
       keyConcepts: "In a series circuit, components are connected in a single line. Current has only one path to flow; if one component fails, the loop opens and all loads shut off. In a parallel circuit, components are connected on separate branches. Each branch has a direct path to the power source, allowing independent operation.",
@@ -274,7 +274,7 @@ export const WORKORDERS = [
   // WO 10
   {
     num: 10, station: 'plumbing', title: 'Faucet Flow Rate (GPM) Calculation',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '',
     studySheet: {
       overview: "Potable water conservation is a critical requirement of modern plumbing engineering and building codes. System flow rates are calculated in Gallons Per Minute (GPM) to verify efficiency compliance.",
       keyConcepts: "Water flow is determined by water pressure (measured in PSI) and the size of the orifice opening. Faucet aerators are small mesh screens installed at the spout outlet that introduce air bubbles into the water stream, expanding the visual flow profile while significantly reducing actual water volume usage.",
@@ -301,7 +301,7 @@ export const WORKORDERS = [
   // WO 11
   {
     num: 11, station: 'hvac', title: 'Thermostat Sub-base Mounting & Terminals',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: 'La9IyRWrRVk',
     studySheet: {
       overview: "Thermostats act as the command center for HVAC systems, using low-voltage signals to communicate temperature demands to control boards located inside furnaces and air handlers.",
       keyConcepts: "Thermostats operate on 24-Volt Alternating Current (24VAC), which is stepped down from 120V line power by an internal transformer. Wires use a standard color-code terminal standard: Red (24V Hot power), White (Heating control), Yellow (Cooling control), Green (Blower Fan control), and Blue/Common (Ground return path).",
@@ -328,7 +328,7 @@ export const WORKORDERS = [
   // WO 12
   {
     num: 12, station: 'automotive', title: 'Tire Sidewall Specifications & Pressure Check',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: 'xDxFIISCNpY',
     studySheet: {
       overview: "Tires are the only contact point between a vehicle and the road, making proper inspection and inflation essential for vehicle control, braking performance, and passenger safety.",
       keyConcepts: "A tire sidewall displays a standard specifications string (e.g. 225/50R17). '225' is the tire width in millimeters, '50' is the aspect ratio (sidewall height is 50% of width), 'R' is radial construction, and '17' is the wheel diameter in inches. The Department of Transportation (DOT) code displays a 4-digit date stamp (e.g. 1223 means the 12th week of 2023).",
@@ -355,7 +355,7 @@ export const WORKORDERS = [
   // WO 13
   {
     num: 13, station: 'safety', title: 'Warehouse 5S Sorting (Playing Card Drill)',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: '',
     studySheet: {
       overview: "5S is a lean workplace organization methodology developed in Japan. It stands for five steps: Sort, Set in order, Shine, Standardize, and Sustain. Implementing 5S reduces travel times, cuts operational wastes, and eliminates hidden safety hazards.",
       keyConcepts: "A messy workspace contains waste, hides tools, and causes walking delays. In logistics, inventory slotting organizes parts by usage frequency: placing high-demand items close to shipping lanes and on waist-level racks reduces picking path times and lowers physical worker fatigue.",
@@ -382,7 +382,7 @@ export const WORKORDERS = [
   // WO 14
   {
     num: 14, station: 'drafting', title: 'Room Mapping & Single Room Floor Plan',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: '',
     studySheet: {
       overview: "A floor plan is a scaled, horizontal cut view of a room looking down from above. It shows wall boundaries, door swings, window openings, and built-in fixtures, serving as the blueprint base for structural modifications.",
       keyConcepts: "Architectural drawings use standard symbols to represent features: swinging doors are drawn as a straight panel line with a curved swing arc; sliding windows are drawn as thin double-lines inside walls. Legends and schedules define the symbols and line styles used across drawing sheets.",
@@ -409,7 +409,7 @@ export const WORKORDERS = [
   // WO 15
   {
     num: 15, station: 'foamboard', title: 'T-Square Layout & Base Frame Assembly',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: '',
     studySheet: {
       overview: "T-squares and speed squares are basic geometry tools used in carpentry, drafting, and framing layouts to establish perpendicular lines and ensure wall junctions meet at exact 90-degree angles.",
       keyConcepts: "A T-square has two parts: the crosshead (placed flat against the board edge) and the blade (guides the pencil). Sliding the head along the board edge allows drawing parallel or perpendicular lines. A frame is 'square' when all corners are exactly 90 degrees. This is verified by checking that opposite diagonal measurements are equal.",
@@ -436,7 +436,7 @@ export const WORKORDERS = [
   // WO 16
   {
     num: 16, station: 'precision', title: 'Torque Wrench Calibration & Operation',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: '',
     studySheet: {
       overview: "Threaded fasteners clamp parts together. If tightened too little, they will loosen under vibration; if tightened too much, they will stretch, strip threads, or snap. Torque wrenches allow tightening fasteners to exact tension specs.",
       keyConcepts: "Torque is a rotational force calculated as Force multiplied by Distance (T = F * D). Standard units are Foot-Pounds (ft-lbs) or Inch-Pounds (in-lbs). A click-type torque wrench uses an adjustable internal spring sleeve. When the set torque is reached, an internal pivot slips, producing an audible 'click' and a physical release.",
@@ -463,7 +463,7 @@ export const WORKORDERS = [
   // WO 17
   {
     num: 17, station: 'electrical', title: 'MyHome Kit - Wiring a 3-Way Switch',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '',
     studySheet: {
       overview: "A 3-way switch circuit controls a single light load from two separate locations (e.g., lighting at both the top and bottom of a staircase, or at both ends of a hallway).",
       keyConcepts: "A standard single-pole switch has two terminals and simply opens or closes the line wire. A 3-way switch has three terminals: one Common terminal (colored black or labeled COM) and two Traveler terminals (brass colored). The Common terminal acts as the input/output hub, while the traveler terminals provide two alternate paths for current to travel.",
@@ -490,7 +490,7 @@ export const WORKORDERS = [
   // WO 18
   {
     num: 18, station: 'plumbing', title: 'Small Parts Kit - Sink P-Trap Assembly',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: 'u0BgA1tVPaM',
     studySheet: {
       overview: "Sewer systems emit toxic and flammable sewer gases. Plumbing codes require every drain fixture to have a barrier trap that blocks these gases from venting into interior spaces.",
       keyConcepts: "A P-trap features a curved U-bend that holds standing water, creating a water seal barrier. The depth of the trap seal must be between 2\" (minimum) and 4\" (maximum). Traps must connect to a vent pipe downstream to introduce air, preventing vacuum forces from siphoning the seal water out when fixtures drain.",
@@ -517,7 +517,7 @@ export const WORKORDERS = [
   // WO 19
   {
     num: 19, station: 'hvac', title: 'HVAC Temperature Split (Delta T) Audit',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: '',
     studySheet: {
       overview: "Air conditioners and heat pumps cool air by extracting thermal energy at the indoor evaporator coil. Monitoring system performance requires auditing the temperature split (Delta T) across the air handler.",
       keyConcepts: "The temperature split is the difference in temperature between the air entering the system through the return duct and the conditioned air leaving through supply registers. In cooling mode, a properly operating AC evaporator coil will absorb enough heat to drop air temperatures by a specific thermodynamic split range.",
@@ -544,7 +544,7 @@ export const WORKORDERS = [
   // WO 20
   {
     num: 20, station: 'automotive', title: 'Under-Hood Fluids Quality & Level Audit',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: 'qOYXklWjuXA',
     studySheet: {
       overview: "Automotive systems rely on chemical fluids to lubricate gears, absorb combustion heat, translate hydraulic control pressures, and wash wind-shield glass. Checking these fluids regularly prevents mechanical breakdowns.",
       keyConcepts: "Fluid checks evaluate both level and condition. Fresh engine oil is amber/yellow; dark black indicates carbon soot buildup; a milky white color indicates coolant contamination (blown head gasket). Coolant levels are checked in translucent overflow reservoirs. Brake fluid must remain clear; dark amber indicates water absorption.",
@@ -571,7 +571,7 @@ export const WORKORDERS = [
   // WO 21
   {
     num: 21, station: 'safety', title: 'Personal SDS / MSDS Compilation using AI',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: '',
     studySheet: {
       overview: "The OSHA Hazard Communication Standard requires employers to maintain Safety Data Sheets (SDSs) for all commercial chemicals on site. These sheets are organized into 16 GHS standardized sections to provide clear safety and disposal instructions.",
       keyConcepts: "The Globally Harmonized System (GHS) uses standard pictograms to communicate chemical risks at a glance. Signal words indicate severity: 'Danger' for severe hazards, and 'Warning' for less severe hazards. Section 8 of the SDS outlines the Personal Protective Equipment (PPE) required to handle the chemical safely.",
@@ -598,7 +598,7 @@ export const WORKORDERS = [
   // WO 22
   {
     num: 22, station: 'drafting', title: 'Wall Thickness Mapping & Blueprint Drawing',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: '',
     studySheet: {
       overview: "Wall thicknesses must be represented accurately on architectural drawings to align structural frames, size door jamb casings, and plan plumbing/HVAC chases inside partition spaces.",
       keyConcepts: "Walls are drafted as double lines rather than single lines to represent their actual physical thickness. Interior partition walls are framed with 2x4 studs (3.5\" actual width) plus 1/2\" drywall on each side, yielding a 4.5\" finished thickness. Exterior walls use 2x6 studs (5.5\" actual width) plus sheathing, drywall, and siding.",
@@ -625,7 +625,7 @@ export const WORKORDERS = [
   // WO 23
   {
     num: 23, station: 'foamboard', title: 'Diagonal Truss Bracing & Pythagorean Math',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: 'uthjpYKD7Ng',
     studySheet: {
       overview: "Frames built with perpendicular rails (rectangles) are vulnerable to lateral forces that cause them to tilt or skew, a structural deformation known as racking. Triangulation is the primary technique used to stabilize structures.",
       keyConcepts: "A triangle is the only geometric shape that is inherently rigid; its angles cannot change without changing the lengths of its sides. Adding diagonal braces across corners transfers lateral shear forces into compression and tension loads along the brace. Diagonal lengths are calculated using the Pythagorean theorem.",
@@ -652,7 +652,7 @@ export const WORKORDERS = [
   // WO 24
   {
     num: 24, station: 'precision', title: 'Precision Gasket Fabrication',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: '',
     studySheet: {
       overview: "Mating metal surfaces in plumbing fittings, automotive water pumps, and engines have microscopic imperfections that can leak under pressure. Gaskets are compressible barriers installed between these flanges to create reliable seals.",
       keyConcepts: "A gasket is cut from soft sheets of paper, cork, or rubber. When the flange bolts are tightened, the gasket material compresses to fill the surface gaps. Precision fabrication requires copying the flange outline and bolt hole patterns onto the gasket material.",
@@ -679,7 +679,7 @@ export const WORKORDERS = [
   // WO 25
   {
     num: 25, station: 'electrical', title: 'MyHome Kit - Circuit Fault Diagnostics',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: '',
     studySheet: {
       overview: "Troubleshooting electrical issues requires a systematic diagnostic workflow to locate open paths (breaks), short circuits (bypasses), or high-resistance connections.",
       keyConcepts: "An open circuit is a break in a conductor that stops current flow; voltage drop across the break equals the source voltage. A short circuit is an unintended low-resistance connection that bypasses the load, causing current to spike and fuses or breakers to trip.",
@@ -706,7 +706,7 @@ export const WORKORDERS = [
   // WO 26
   {
     num: 26, station: 'plumbing', title: 'Water Conservation Flow Audit of Breakroom Faucet',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: '',
     studySheet: {
       overview: "Modern facility maintenance audits focus heavily on utility flow calculations. Measuring faucet outputs ensures water conservation guidelines are active and plumbing fixtures remain highly efficient.",
       keyConcepts: "Flow rates are measured in Gallons Per Minute (GPM). Measuring faucet flow does not require disassembling fixtures. Running water into a measured container for a timed interval allows direct math calculations. Mineral scale inside aerators can reduce flow rates, requiring cleaning.",
@@ -733,7 +733,7 @@ export const WORKORDERS = [
   // WO 27
   {
     num: 27, station: 'hvac', title: 'Multi-meter Capacitance Audits of Loose Capacitors',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '',
     studySheet: {
       overview: "Electric motors in HVAC equipment require electrical capacitors to provide starting torque and keep motors running efficiently. Testing these components must be done under safe benchtop conditions.",
       keyConcepts: "Run and start capacitors hold electrical charges and are rated in microfarads (uF). Multimeters with capacitance settings measure this value. Physical defects include bulging tops or leaking oil. Capacitors must be discharged using an insulated screwdriver before handling.",
@@ -760,7 +760,7 @@ export const WORKORDERS = [
   // WO 28
   {
     num: 28, station: 'automotive', title: 'OBD-II Code Scanning & Freeze Frame Data',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: '',
     studySheet: {
       overview: "On-Board Diagnostics (OBD-II) is a standardized digital system that monitors emissions and powertrain components. The Engine Control Unit (ECU) monitors sensors and records errors.",
       keyConcepts: "When a fault is detected, the ECU stores a 5-character Diagnostic Trouble Code (DTC) starting with a letter: P (Powertrain), C (Chassis), B (Body), or U (Network). A Freeze Frame is a snapshot of sensor data (engine RPM, coolant temp, speed) logged at the exact second the code was tripped.",
@@ -787,7 +787,7 @@ export const WORKORDERS = [
   // WO 29
   {
     num: 29, station: 'safety', title: 'Mock OSHA Facility Inspection',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: '',
     studySheet: {
       overview: "Commercial and industrial facilities are subject to OSHA inspection standards to ensure safe working environments. Regular internal audits maintain safety compliance.",
       keyConcepts: "Inspections focus on key risk areas: egress pathways, walking surfaces, chemical labeling, and electrical clearance. Walking paths must remain clear to prevent trip hazards. Chemical secondary containers must display GHS labels indicating warnings.",
@@ -814,7 +814,7 @@ export const WORKORDERS = [
   // WO 30
   {
     num: 30, station: 'drafting', title: 'Warehouse Order Picking (Card Zone game)',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '',
     studySheet: {
       overview: "Order picking is a core process in warehouse logistics. It involves retrieving items from storage locations to fulfill orders, with travel time accounting for the majority of picking costs.",
       keyConcepts: "To improve efficiency, warehouses use organized layouts. Key picking methods include: zone picking (pickers retrieve items only within assigned aisles) and batch picking (pickers retrieve items for multiple orders in one run). Slotting places high-frequency items close to main lanes to cut walking distances.",
@@ -841,7 +841,7 @@ export const WORKORDERS = [
   // WO 31
   {
     num: 31, station: 'foamboard', title: '3D Wall Stud & Sill Plate Framing',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: '',
     studySheet: {
       overview: "Wood light-frame construction is the standard framing method for residential and commercial walls. Spacing and aligning studs is key to ensuring structural walls can carry weight and support drywall panels.",
       keyConcepts: "A standard wall frame consists of a bottom sill plate, vertical wall studs, and a top plate. Studs are spaced 16 inches on-center (OC) in full-scale walls to align with the standard 4' x 8' dimensions of drywall sheets.",
@@ -868,7 +868,7 @@ export const WORKORDERS = [
   // WO 32
   {
     num: 32, station: 'precision', title: 'Blade Swaps & Preventative Tool Care',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: '',
     studySheet: {
       overview: "Hand tools are investments that require regular maintenance to remain safe, precise, and efficient. Proper care extends tool life and reduces workplace injuries.",
       keyConcepts: "Utility knives, hacksaws, and scrapers rely on sharp blades. A dull blade requires excessive pressure to cut, increasing the risk of the blade slipping. Hacksaw blades must be installed with teeth pointing forward and tensioned to prevent twisting during cuts.",
@@ -895,7 +895,7 @@ export const WORKORDERS = [
   // WO 33
   {
     num: 33, station: 'electrical', title: 'Wiring a Duplex Outlet Receptacle',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: 'tlYzrUKJDcQ',
     studySheet: {
       overview: "Duplex outlets are the standard points of connection for electrical appliances. Wiring them safely requires following polarization rules to ensure circuit currents travel along safe paths.",
       keyConcepts: "Polarization uses color-coded screws to ensure proper connections: Hot wires (black) connect to brass screws, Neutral wires (white) connect to silver screws, and Ground wires (bare copper) connect to the green screw on the outlet frame.",
@@ -922,7 +922,7 @@ export const WORKORDERS = [
   // WO 34
   {
     num: 34, station: 'plumbing', title: 'Small Parts Kit - Piping Manifold Layout',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: 'FLhddKA1lfQ',
     studySheet: {
       overview: "Potable water systems can use traditional trunk-and-branch layouts (where a large pipe runs through the house with smaller pipes branching off to individual fixtures) or modern manifold layouts.",
       keyConcepts: "A manifold plumbing layout splits a main water service line into multiple dedicated ports. Each fixture receives a dedicated, continuous line directly from the central manifold, similar to an electrical breaker panel. This reduces pressure drops when multiple fixtures are used at once.",
@@ -949,7 +949,7 @@ export const WORKORDERS = [
   // WO 35
   {
     num: 35, station: 'hvac', title: 'Duct Sizing Calculations & Velocity Friction Losses',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: 'Iy6oIm0eX2M',
     studySheet: {
       overview: "Air ducts act as the highways for forced-air systems. If duct diameters are too small, the air velocity spikes, producing loud airflow whistling and raising duct system static pressure.",
       keyConcepts: "Duct design balances cross-sectional area against target airflow. Circular ducts are aerodynamically efficient because they minimize friction perimeter contact. Aspect ratio describes the width-to-height ratio of rectangular ducts; larger aspect ratios increase duct steel surface friction, dropping air speed.",
@@ -976,7 +976,7 @@ export const WORKORDERS = [
   // WO 36
   {
     num: 36, station: 'automotive', title: 'Used Car Pre-Purchase Inspection',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: 'CeJULC9fSMA',
     studySheet: {
       overview: "Pre-purchase inspections evaluate a used vehicle's mechanical and structural condition to identify hidden issues and prevent purchasing vehicles with costly damage.",
       keyConcepts: "Check structural panel gaps: uneven gaps suggest previous collision repairs. Inspect belts for cracks or glazing, and check radiator hoses for swelling or crusty scales that indicate cooling system leaks. Inspect battery terminals for acidic corrosion.",
@@ -1003,7 +1003,7 @@ export const WORKORDERS = [
   // WO 37
   {
     num: 37, station: 'safety', title: 'Facility Fire Safety & Extinguisher Check',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '',
     studySheet: {
       overview: "Fire safety protocols and regular equipment inspections are essential for protecting lives and property in industrial and warehouse facilities.",
       keyConcepts: "Class ABC fire extinguishers are standard for general workspaces, designed to extinguish wood/paper (A), flammable liquids (B), and electrical (C) fires. Extinguishers must have a valid inspection tag showing they have been checked in the last year.",
@@ -1030,7 +1030,7 @@ export const WORKORDERS = [
   // WO 38
   {
     num: 38, station: 'drafting', title: 'Calculating Square Footage & Building Blueprint',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: '',
     studySheet: {
       overview: "Blueprints use plan views (top-down views), elevations (side views), and sections (cutaway details) to represent building structures. Sizing floor area is necessary to plan HVAC and electrical loads.",
       keyConcepts: "Blueprints are scaled representations, with 1/4\" = 1'0\" being the standard for US residential structures. Measuring irregular building layouts requires dividing the space into smaller rectangular zones, calculating the area of each (Length x Width), and adding them together.",
@@ -1057,7 +1057,7 @@ export const WORKORDERS = [
   // WO 39
   {
     num: 39, station: 'foamboard', title: 'Roof Truss & Common Rafter Assembly',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: '',
     studySheet: {
       overview: "Roof structures protect buildings from weather, using triangular trusses to span distances and transfer structural loads down to exterior load-bearing walls.",
       keyConcepts: "A roof truss consists of two diagonal rafters, a bottom horizontal tie beam (ceiling joist), and internal web braces. The tie beam is critical because it acts as a tension member, preventing the rafters from spreading outward under loads. Rafter pitch represents vertical rise over a 12\" horizontal run.",
@@ -1084,7 +1084,7 @@ export const WORKORDERS = [
   // WO 40
   {
     num: 40, station: 'precision', title: 'Final Trades Verification & Tool Inventory',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '',
     studySheet: {
       overview: "Performing inventory and cleaning the workspace at the end of a shift are core professional policies for contractors, ensuring tool accountability, efficiency, and workplace safety.",
       keyConcepts: "Tool control prevents tools from being left behind inside structures, where they can jam moving parts or cause electrical short circuits. Clean toolboxes protect steel tools from humidity, which causes rust and corrosion.",
@@ -1111,7 +1111,7 @@ export const WORKORDERS = [
   // WO 41
   {
     num: 41, station: 'electrical', title: 'MyHome Kit - Residential Solar & Green Grid Integration',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: '',
     studySheet: {
       overview: "Solar energy systems capture photons from sunlight to generate Direct Current (DC) electricity. To use this power in standard residential structures, DC power must be stored in chemical batteries or converted into Alternating Current (AC) using electrical inverters.",
       keyConcepts: "Photovoltaic cells use semiconductor materials to release electrons when exposed to light. A solar charge controller regulates voltage fed into batteries to prevent overcharging. Net metering allows homes to send excess power back to the municipal grid, spinning utility meters backward.",
@@ -1138,7 +1138,7 @@ export const WORKORDERS = [
   // WO 42
   {
     num: 42, station: 'plumbing', title: 'Building Fixture Flow Audit & Pressure Calcs',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: '',
     studySheet: {
       overview: "Water pressure is determined by the height of the water column (head) or the municipal pumping supply. As water travels through pipes and fittings, friction creates resistance that drops flow pressure, known as friction head loss.",
       keyConcepts: "Static pressure is the pressure when water is not moving. Dynamic pressure is the pressure at a fixture when water is flowing. Water pressure increases by 0.433 PSI for every 1 foot of vertical water column height. Sizing supply pipes correctly ensures multiple fixtures can run concurrently without losing flow.",
@@ -1165,7 +1165,7 @@ export const WORKORDERS = [
   // WO 43
   {
     num: 43, station: 'hvac', title: 'Air Balancing Math & Heat Load CFM Calculations',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: '',
     studySheet: {
       overview: "Air balancing is the process of adjusting an HVAC system to deliver the target quantity of conditioned air to each room. This is calculated based on the room's thermal heating and cooling loads.",
       keyConcepts: "To calculate the volume of air (CFM) required to heat or cool a space, technicians use the Sensible Heat Equation: CFM = BTU/h / (1.08 * TempDiff). TempDiff is the temperature split between the supply air and the room design temperature. Correct balancing prevents hot or cold spots.",
@@ -1192,7 +1192,7 @@ export const WORKORDERS = [
   // WO 44
   {
     num: 44, station: 'automotive', title: 'Windshield Wiper Blade Auditing & Connector Swaps',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: '',
     studySheet: {
       overview: "Windshield wiper systems are critical for maintaining visibility during bad weather. The wiper blade's rubber element degrades rapidly due to UV exposure, ozone, and temperature changes, requiring regular inspections and replacements.",
       keyConcepts: "Wiper assemblies consist of a motorized wiper arm, a metal/plastic blade frame, and a flexible rubber squeegee element. Wiper arms use standard connection styles: the J-hook (most common), side-pin, bayonet, or push-button. Blade sizes often differ between the driver and passenger sides to maximize glass coverage.",
@@ -1219,7 +1219,7 @@ export const WORKORDERS = [
   // WO 45
   {
     num: 45, station: 'safety', title: 'Hazard Communication Chemical Spill Plan',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: '',
     studySheet: {
       overview: "Accidental chemical spills present severe inhalation, chemical burn, and environmental safety risks in warehouse and commercial facilities. Proper spill response requires structured plans.",
       keyConcepts: "Hazard communication standard requires keeping SDS catalogs readily accessible. When a spill occurs, the responder must evaluate the chemical using SDS Section 6 (Accidental Release Measures). Responses depend on chemical properties: flammables require cutting power to prevent spark ignition, while corrosives require chemical neutralizers.",
@@ -1246,7 +1246,7 @@ export const WORKORDERS = [
   // WO 46
   {
     num: 46, station: 'drafting', title: 'Wall Framing Layout & Elevation Blueprint',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: 'RIGOU5KUxf0',
     studySheet: {
       overview: "Wall framing blueprints display vertical layout elevations of wall structures. They show the arrangement of vertical studs, horizontal plates, and structural reinforcement paths around doors and windows.",
       keyConcepts: "Elevation drawings show wall heights and layouts. Wall elements include: king studs (full-height studs running plate-to-plate), jack studs (cut-down studs supporting headers), headers (horizontal beams spanning openings), and cripple studs (short studs filling gaps).",
@@ -1273,7 +1273,7 @@ export const WORKORDERS = [
   // WO 47
   {
     num: 47, station: 'foamboard', title: 'Multi-Story Joint Assembly & Floor Joist Prototyping',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '',
     studySheet: {
       overview: "Multi-story construction requires transferring gravity loads down through intermediate floors to vertical walls. Floor platforms are framed using floor joists and sub-floors to span spaces.",
       keyConcepts: "Floor framing uses parallel wood joists secured to perimeter rim joists. The joists support a subfloor deck (typically plywood or OSB). Where vertical walls join intermediate floor joists, blocking and plates are required to prevent structural shifting under load.",
@@ -1300,7 +1300,7 @@ export const WORKORDERS = [
   // WO 48
   {
     num: 48, station: 'precision', title: 'Dial Indicators & Rotating Shaft Runout Check',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: '',
     studySheet: {
       overview: "Rotating shafts (crankshafts, camshafts, drive-shafts) must spin without warpage or eccentricity to prevent vibration and bearing destruction. Dial indicators are precision tools used to measure shaft runout.",
       keyConcepts: "Runout is the deviation of a rotating part from a perfect circle or cylinder axis. Dial indicators use a spring-loaded probe. Deflections move a needle around a dial graduated in 1/1000th increments. The indicator is mounted on a magnetic stand to maintain stability.",
@@ -1327,7 +1327,7 @@ export const WORKORDERS = [
   // WO 49
   {
     num: 49, station: 'electrical', title: 'Wiring a Single-Pole Switch & Light Combo',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: 'rYj5QTBjeK4',
     studySheet: {
       overview: "Single-pole toggle switches control lights by breaking and closing the hot line conductor. Neutral and ground lines bypass the switch to complete circuits at the load fixture.",
       keyConcepts: "In switch wiring, power runs from the source panel to the switch box. The switch breaks the hot line (black wire). Traveler loops feed switch output hot legs to the light fixture. The neutral wire (white) must connect directly to the light socket screw terminal.",
@@ -1354,7 +1354,7 @@ export const WORKORDERS = [
   // WO 50
   {
     num: 50, station: 'plumbing', title: 'Small Parts Kit - pegboard Waste Pipe Assemblies',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '',
     studySheet: {
       overview: "Dual-basin sinks require specialized drainage piping to combine waste water from two separate bowls into a single P-trap downstream without backup or siphonage.",
       keyConcepts: "Dual-basin drains use vertical tailpieces from each sink sink strainer leading to a horizontal slip waste arm. The waste arms connect at a sanitary tee fitting, which routes water down to the P-trap. Connections use slip joint washers to seal.",
@@ -1381,7 +1381,7 @@ export const WORKORDERS = [
   // WO 51
   {
     num: 51, station: 'hvac', title: 'Reading HVAC Control Board Circuit Schematics',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: '3pIqbjv1MTQ',
     studySheet: {
       overview: "Modern forced-air heating and cooling equipment utilizes solid-state circuit boards to coordinate motor starts, ignition steps, and safety checks. Reading electrical schematics is a core HVAC skill.",
       keyConcepts: "HVAC wiring diagrams use standard electrical drafting symbols. Switches are shown as open/closed bridges; transformer coils show voltage step-down lines; relays show electromagnetic controls. Understanding legends ensures wire routes can be tracked during diagnostics.",
@@ -1408,7 +1408,7 @@ export const WORKORDERS = [
   // WO 52
   {
     num: 52, station: 'automotive', title: 'Vehicle Fuse Block Audits & Diagnostics',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: '',
     studySheet: {
       overview: "Automotive electrical networks route power through multiple control circuits. Fuses are safety devices designed to protect these circuits from overcurrent damage caused by short circuits or component overloads.",
       keyConcepts: "A fuse contains a low-resistance metal wire bridge designed to melt and open the circuit when current exceeds its rating. Blade fuses are standard in vehicles, color-coded by amperage: Red (10A), Blue (15A), Yellow (20A). Fuse boxes include legends printed on the cover lids listing fuse numbers and circuit labels.",
@@ -1435,7 +1435,7 @@ export const WORKORDERS = [
   // WO 53
   {
     num: 53, station: 'safety', title: 'Emergency Fire Egress Map & Sign Audit',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: '',
     studySheet: {
       overview: "OSHA regulations require commercial and warehouse facilities to establish clear Emergency Action Plans (EAPs), detailing escape routes, assembly points, and alarm systems.",
       keyConcepts: "Egress routes consist of three parts: (1) Exit access (hallways leading to the door). (2) Exit (the fire door enclosure). (3) Exit discharge (exterior path leading to public ways). Exit paths must remain unobstructed. Emergency lighting systems use backup batteries to light paths during power failures.",
@@ -1462,7 +1462,7 @@ export const WORKORDERS = [
   // WO 54
   {
     num: 54, station: 'drafting', title: 'Stair Stringer Geometry & Rise-Run Math',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: '',
     studySheet: {
       overview: "Stair construction requires precise math and drafting to ensure steps are uniform, comfortable, and safe. A minor difference in riser heights presents major tripping hazards.",
       keyConcepts: "A staircase consists of the stringer (the sawtooth structural support), tread (horizontal step surface), and riser (vertical step back). Total Rise is the vertical height between finished floor surfaces. Total Run is the horizontal distance spanned by the stairs.",
@@ -1489,7 +1489,7 @@ export const WORKORDERS = [
   // WO 55
   {
     num: 55, station: 'foamboard', title: 'Staircase Model Construction & Assembly',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: '',
     studySheet: {
       overview: "Building models of stairs is an excellent way to practice cutting angles, verifying rise and run steps, and understanding how stairs are supported structurally.",
       keyConcepts: "Stair stringers are cut from dimensional lumber. In model building, a T-square and speed square align rise/run cuts at 90-degree angles. Treads and risers glue to the stringer teeth. The top of the stringer is cut to lock onto floor joists.",
@@ -1516,7 +1516,7 @@ export const WORKORDERS = [
   // WO 56
   {
     num: 56, station: 'precision', title: 'Micrometer Operations & Shaft Diameter Checks',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: '',
     studySheet: {
       overview: "Micrometers measure dimensions with high precision, reading down to one ten-thousandth of an inch (0.0001\"). They are standard in automotive and machining shops to verify cylinder bores, shaft wear, and bearing clearances.",
       keyConcepts: "A micrometer contains an anvil, spindle, sleeve scale, thimble scale, and a ratchet stop. The sleeve contains main barrel markings representing 0.025\" intervals. The rotating thimble contains 25 markings, where each mark represents 0.001\" of spindle travel.",
@@ -1543,7 +1543,7 @@ export const WORKORDERS = [
   // WO 57
   {
     num: 57, station: 'electrical', title: 'MyHome Kit - Home Security Alarm System',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '',
     studySheet: {
       overview: "Home security systems use sensor loops to monitor access points. Understanding how these sensors communicate with buzzers and warning indicators teaches digital logic and relay controls.",
       keyConcepts: "Security loops use Normally Closed (NC) or Normally Open (NO) switch contacts. In an NC loop, current flows continuously; opening a door breaks the loop, triggering the alarm control relay. Buzzers and warning lights are wired as parallel alarm outputs.",
@@ -1570,7 +1570,7 @@ export const WORKORDERS = [
   // WO 58
   {
     num: 58, station: 'plumbing', title: 'Kitchen Faucet Spray Head Maintenance & Washer Gaskets',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: '',
     studySheet: {
       overview: "Sink spray nozzles and faucet heads contain removable connection joints. Maintenance requires checking safety gaskets and cleaning structural spray orifices to ensure clean streams.",
       keyConcepts: "Loose faucet spray nozzles screw onto flexible rubber hoses. A rubber washer gasket seals the joint; if the washer splits or falls out, water will spray backward into the cabinet. Hard water deposits block spray nozzles, causing uneven spray angles.",
@@ -1597,7 +1597,7 @@ export const WORKORDERS = [
   // WO 59
   {
     num: 59, station: 'hvac', title: 'Sealing Mock Duct Joints on Cardboard Tubes/Ducts',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: '',
     studySheet: {
       overview: "Duct joints must be sealed airtight to prevent conditioned air from leaking into attics or walls. Sealing represents a core energy conservation code requirement.",
       keyConcepts: "Standard duct joints leak under static pressure. The primary methods for sealing ducts include: paint-on duct mastic paste or UL 181-approved foil tape. Foil tape contains high-tack acrylic adhesives designed to withstand temperature cycles without drying out.",
@@ -1624,7 +1624,7 @@ export const WORKORDERS = [
   // WO 60
   {
     num: 60, station: 'automotive', title: 'Halogen Bulb Replacement & Harness Safety',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '',
     studySheet: {
       overview: "Vehicle lighting systems are essential for night driving and safety signaling. Replacing burned-out headlight and taillight bulbs is a standard maintenance task that requires correct handling of high-pressure halogen envelopes.",
       keyConcepts: "Halogen bulbs contain high-pressure gas envelopes that operate at intense temperatures. The quartz glass envelope is highly sensitive to contamination. Skin contact leaves oils that create hot spots during operation, causing the bulb glass to bubble, crack, and fail prematurely.",
@@ -1651,7 +1651,7 @@ export const WORKORDERS = [
   // WO 61
   {
     num: 61, station: 'electrical', title: 'Wiring a GFCI Safety Receptacle Outlet',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: 'inpvNt6591E',
     studySheet: {
       overview: "Ground Fault Circuit Interrupters (GFCIs) are safety devices designed to protect people from electrical shocks by monitoring the balance of current between the hot and neutral conductors.",
       keyConcepts: "A GFCI monitors the current exiting the hot terminal and returning to the neutral terminal. If it detects a difference of 4-6 milliamps (indicating current is escaping to ground, possibly through a person), it trips and cuts power in under 1/30th of a second.",
@@ -1678,7 +1678,7 @@ export const WORKORDERS = [
   // WO 62
   {
     num: 62, station: 'plumbing', title: 'Compression Fitting Assembly & Copper Tubing Prep',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: 'bedg1qp-F4M',
     studySheet: {
       overview: "Compression fittings allow joining copper or plastic pipes without solder flux or flames. They are standard for connecting appliance water supply lines and shut-off valves.",
       keyConcepts: "A compression joint consists of three parts: the compression nut, the brass ring (ferrule), and the fitting body. Tightening the nut compresses the ferrule around the pipe wall, forming a high-pressure friction seal.",
@@ -1705,7 +1705,7 @@ export const WORKORDERS = [
   // WO 63
   {
     num: 63, station: 'hvac', title: 'Refrigerant Cycle & Pressure-Temperature (P-T) Chart Math',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: '',
     studySheet: {
       overview: "Air conditioners transfer heat using refrigerant chemicals that cycle between liquid and gas states. Troubleshooting refrigerant levels requires evaluating pressures against temperature charts.",
       keyConcepts: "The refrigeration cycle uses four main components: evaporator (absorbs heat, vaporizes liquid), compressor (pumps vapor, raises pressure), condenser (rejects heat, condenses vapor), and expansion valve (throttles liquid, drops pressure). Saturated temperature is the boiling point of a refrigerant at a given pressure.",
@@ -1732,7 +1732,7 @@ export const WORKORDERS = [
   // WO 64
   {
     num: 64, station: 'automotive', title: 'Serpentine Accessory Belt Inspection & Routing Diagrams',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: '',
     studySheet: {
       overview: "Serpentine belts transfer mechanical power from the rotating engine crankshaft to accessories like the alternator, power steering pump, water pump, and air conditioning compressor.",
       keyConcepts: "A serpentine belt is a continuous rubber belt featuring multi-grooved ribs. Pulleys are either driven (connected to accessories) or idler/tensioner pulleys (spring-loaded to maintain belt tension). Belts wear down over time, slipping or snapping if not replaced.",
@@ -1759,7 +1759,7 @@ export const WORKORDERS = [
   // WO 65
   {
     num: 65, station: 'safety', title: 'Workplace First-Aid Station Inspection',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: '',
     studySheet: {
       overview: "OSHA regulations mandate that employers provide medical and first aid supplies for employee safety. Regular audits ensure first-aid stations remain stocked with unexpired, code-compliant items.",
       keyConcepts: "Workplace first-aid kits are categorized by ANSI/ISEA Z308.1 standards. Class A kits contain basic supplies (bandages, antiseptics, scissors) for common minor injuries. Class B kits contain broader supplies (burn dressings, splints) for higher-risk industrial environments.",
@@ -1786,7 +1786,7 @@ export const WORKORDERS = [
   // WO 66
   {
     num: 66, station: 'drafting', title: 'Electrical Symbols & Schematic Drafting',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: '_HZ-EQ8Hc8E',
     studySheet: {
       overview: "Electrical blueprints use standardized symbols to represent outlet locations, switch connections, and wiring runs. Drafting these plans is necessary to guide field wire installations.",
       keyConcepts: "Standard symbols represent components: a circle with two horizontal lines is a duplex outlet; a circle with an 'S' is a single-pole switch; 'S3' is a 3-way switch; a circle with radial spikes is a ceiling light. Wiring paths are drawn as curved, dashed lines.",
@@ -1813,7 +1813,7 @@ export const WORKORDERS = [
   // WO 67
   {
     num: 67, station: 'foamboard', title: 'Window Rough Opening & Jack Stud Assembly',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: 'TmJJfLlZgaQ',
     studySheet: {
       overview: "Wall framing must include openings to accommodate windows and doors. The structural framing around these openings must transfer load weight from the roof down to the foundation.",
       keyConcepts: "A window opening assembly consists of: king studs (full-height), jack studs (coped/cut to support the header), a header beam spanning the top, a horizontal sill plate forming the window bottom, and short cripple studs installed below the sill and above the header.",
@@ -1840,7 +1840,7 @@ export const WORKORDERS = [
   // WO 68
   {
     num: 68, station: 'precision', title: 'Dial Indicators & Disc Rotor Lateral Runout',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: '',
     studySheet: {
       overview: "Brake disc rotors must rotate with minimal lateral runout. Excessive lateral runout causes brake pedal pulsation, steering wheel shake, and uneven brake pad wear during stopping.",
       keyConcepts: "Lateral runout is the side-to-side wobble of a rotating disc relative to its axis. It is measured in thousandths of an inch using a dial indicator. The indicator is mounted to a magnetic base clamped to a solid suspension component.",
@@ -1867,7 +1867,7 @@ export const WORKORDERS = [
   // WO 69
   {
     num: 69, station: 'electrical', title: 'Wiring a Switch-Controlled Split-Duplex Outlet',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: 'tYinqtVDNcA',
     studySheet: {
       overview: "Split-duplex receptacles are outlets where one socket is switched (controlled by a wall switch) while the other socket remains constantly live (hot). This is common for switching floor lamps in residential rooms.",
       keyConcepts: "A standard duplex receptacle has a brass connecting tab bridging the two hot terminals. Removing this tab separates the electrical paths of the top and bottom plugs. Neutral terminals (silver) must keep their tab intact.",
@@ -1894,7 +1894,7 @@ export const WORKORDERS = [
   // WO 70
   {
     num: 70, station: 'plumbing', title: 'Small Parts Kit - PEX Piping Loops & Crimp Fittings',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '6uNezbvSRYQ',
     studySheet: {
       overview: "Cross-linked polyethylene (PEX) is a flexible plastic piping material that has largely replaced traditional copper in residential plumbing due to its lower cost, freeze resistance, and ease of routing.",
       keyConcepts: "PEX connections use barbed insert fittings. Connections are secured using metal crimp rings compressed with a PEX crimping tool, or stainless steel pinch cinch clamps. PEX expansion joints are common in commercial plumbing.",
@@ -1921,7 +1921,7 @@ export const WORKORDERS = [
   // WO 71
   {
     num: 71, station: 'hvac', title: 'Low-Voltage Control Board Wiring & Jumper Tests',
-    youtubeId: 'eKUEZY3R3cI',
+    youtubeId: '',
     studySheet: {
       overview: "HVAC control boards route low-voltage (24VAC) signals to relays that control high-voltage motors and gas valves. Understanding terminal jumpers is critical for diagnosing system control issues.",
       keyConcepts: "Control strips feature standard screw terminals: R (24VAC power), W (heat call), Y (cool call), G (indoor fan), and C (common ground). Thermostats operate by bridging R to the other terminals. Jumpers simulate thermostat requests.",
@@ -1948,7 +1948,7 @@ export const WORKORDERS = [
   // WO 72
   {
     num: 72, station: 'automotive', title: 'Battery Voltage Diagnostics & Charging Audit',
-    youtubeId: 'mU4XJ_8UNso',
+    youtubeId: '',
     studySheet: {
       overview: "Automotive electrical systems rely on lead-acid batteries to start engines and alternators to charge batteries and power electrical components when running.",
       keyConcepts: "A fully charged 12V lead-acid battery reads 12.6V static (2.1V per cell). A reading below 12.0V indicates a dead battery. During cranking, high starter current causes voltage to drop (should stay above 9.6V). Alternator charging output must read between 13.5V and 14.7V.",
@@ -1975,7 +1975,7 @@ export const WORKORDERS = [
   // WO 73
   {
     num: 73, station: 'safety', title: 'Lock-Out / Tag-Out (LOTO) Energy Isolation Drill',
-    youtubeId: '-Fgid2WqFE8',
+    youtubeId: '',
     studySheet: {
       overview: "Lock-Out/Tag-Out (LOTO) is an essential OSHA safety procedure used to ensure that machines and electrical panels are completely shut off and isolated from energy sources before maintenance is performed.",
       keyConcepts: "LOTO prevents accidental start-up of machinery during repairs. The steps are: (1) Notify affected employees. (2) Shut down the equipment. (3) Isolate all energy sources (breakers, valves). (4) Apply LOTO padlocks and tags. (5) Verify zero energy state.",
@@ -2002,7 +2002,7 @@ export const WORKORDERS = [
   // WO 74
   {
     num: 74, station: 'drafting', title: 'HVAC System Duct Schematic Drawing',
-    youtubeId: 'cUm2KM4GKgY',
+    youtubeId: 'tLZzXtnrZuc',
     studySheet: {
       overview: "HVAC blueprints use duct schematics to represent return and supply lines, air volume settings, and register diffusers. Drafting these paths ensures correct duct sizing and air balance.",
       keyConcepts: "Duct schematics use standard symbols: a solid rectangle is a main sheet metal supply trunk; a dashed or colored rectangle is the return air path; a square containing an 'X' is a register diffuser. Air CFM targets are labeled near register symbols.",
@@ -2029,7 +2029,7 @@ export const WORKORDERS = [
   // WO 75
   {
     num: 75, station: 'foamboard', title: 'Hip and Valley Roof Rafter Geometry',
-    youtubeId: 'CeJULC9fSMA',
+    youtubeId: 'P0USmxLAHtA',
     studySheet: {
       overview: "Hip roofs slope downward to the walls on all four sides of a building. Framing a hip roof requires complex rafter calculations to join intersecting slopes at exact angles.",
       keyConcepts: "A hip roof frame consists of: a central ridge board, common rafters (run perpendicular from plates to ridge), hip rafters (run diagonally from corners to ridge), and jack rafters (short rafters connecting plates to hip rafters). Hip rafters run at a 45-degree angle to the walls.",
@@ -2056,7 +2056,7 @@ export const WORKORDERS = [
   // WO 76
   {
     num: 76, station: 'precision', title: 'Thread Pitch Gauges & Bolt Grade Identification',
-    youtubeId: '1OFV8gpxAxI',
+    youtubeId: '',
     studySheet: {
       overview: "Threaded fasteners must match their threaded holes precisely to hold joints secure. Matching thread sizes requires checking the diameter, pitch, and grade strength of bolts.",
       keyConcepts: "Thread pitch is the distance between adjacent thread peaks. Standard Unified National threads are measured in Threads Per Inch (TPI) as either coarse (UNC) or fine (UNF). Metric threads measure distance in millimeters. Bolt strength is marked by lines on the bolt head.",
@@ -2083,7 +2083,7 @@ export const WORKORDERS = [
   // WO 77
   {
     num: 77, station: 'electrical', title: 'Receptacle Outlet Tester & GFI Tripping Tests',
-    youtubeId: 'jPiiqcDxDxY',
+    youtubeId: '6JpJv1AK8kg',
     studySheet: {
       overview: "Receptacle testers are diagnostic plug-in tools used to quickly verify that wall outlets are wired correctly. They indicate wiring errors using three colored indicator lamps.",
       keyConcepts: "A standard tester checks the continuity and wiring orientation of the hot, neutral, and ground contacts. Diagnostic readouts include: Correct wiring, Open Ground (no ground path), Open Neutral (no neutral path), Open Hot (no power), Hot/Ground Reversed, and Hot/Neutral Reversed.",
@@ -2110,7 +2110,7 @@ export const WORKORDERS = [
   // WO 78
   {
     num: 78, station: 'plumbing', title: 'Dry-Fitting a Washing Machine Standpipe & Trap',
-    youtubeId: 'IxbZFcYijh4',
+    youtubeId: 'cPeUJt_Imz8',
     studySheet: {
       overview: "Washing machine standpipes receive high-volume waste water discharged from washing machine drain pumps. Sizing and venting the standpipe correctly prevents waste water overflows.",
       keyConcepts: "A standpipe drainage assembly consists of: a vertical standpipe tube, a P-trap, and a sanitary tee connection to the main waste line. The vertical tube must be long enough to contain the initial surge of pumped water without backing up.",
@@ -2137,7 +2137,7 @@ export const WORKORDERS = [
   // WO 79
   {
     num: 79, station: 'hvac', title: 'Airflow Static Pressure Drop Calculation',
-    youtubeId: 'x10Eut1WjwQ',
+    youtubeId: 'DAiZnEel7cI',
     studySheet: {
       overview: "Duct static pressure is the resistance to airflow within the ducts. If resistance is too high, airflow volume drops. Technicians measure pressure drops across filters and coils to assess duct health.",
       keyConcepts: "Static pressure is measured in Inches of Water Column (in. w.c.) using a digital manometer. Total External Static Pressure (TESP) is the sum of the supply duct static pressure and return duct static pressure. Excessive TESP indicates duct restrictions.",
@@ -2164,7 +2164,7 @@ export const WORKORDERS = [
   // WO 80
   {
     num: 80, station: 'automotive', title: 'Engine Vacuum Leak Diagnostics & Hoses Audit',
-    youtubeId: 'raQ_Rra3upQ',
+    youtubeId: '',
     studySheet: {
       overview: "Internal combustion engines generate vacuum pressure inside the intake manifold as pistons travel down on intake strokes. This vacuum pulls the fuel/air charge into the cylinders and powers accessories.",
       keyConcepts: "Engine manifold vacuum is measured in Inches of Mercury (in. Hg) using a vacuum gauge. Rubber vacuum lines route this suction to sensors (MAP sensor), fuel regulators, and brake boosters. Cracks or leaks in these lines leak air in, leaning out the fuel mixture.",
@@ -2193,7 +2193,7 @@ export const WORKORDERS = [
   // -------------------------------------------------------------
   {
     num: 81, station: 'digitallit', title: 'Creating a Professional Cover Letter (Google Docs)',
-    youtubeId: '809c9sL9_W0',
+    youtubeId: '',
     studySheet: {
       overview: "Cover letters are formal business documents introducing job candidates to potential employers. They must use standard font scaling, line spacing, margins, and professional signatures.",
       keyConcepts: "Key formatting properties in Google Docs include: font selection (standard choices like Arial or Times New Roman, 11-12pt size), line spacing (1.15 or single space for letters), alignment (left-aligned paragraphs), margins (1-inch standard borders), and page layout. The document structure requires: contact headers, date, employer information, salutation, body paragraphs, and professional closing signature blocks.",
@@ -2219,7 +2219,7 @@ export const WORKORDERS = [
   },
   {
     num: 82, station: 'digitallit', title: 'Tool Sourcing Expense spreadsheet (Google Sheets)',
-    youtubeId: 'F4tKk80G8A0',
+    youtubeId: '',
     studySheet: {
       overview: "Spreadsheets organize, calculate, and format numerical data. Sourcing lists and material budgets are managed in Google Sheets to automate math calculations and prevent errors.",
       keyConcepts: "Spreadsheets use a grid of columns (labeled A, B, C...) and rows (labeled 1, 2, 3...). The intersection of a column and row is a cell (e.g. B4). Formulas are mathematical instructions that start with an equals sign (=). The SUM function (`=SUM(range)`) adds a range of cells automatically.",
@@ -2245,7 +2245,7 @@ export const WORKORDERS = [
   },
   {
     num: 83, station: 'digitallit', title: 'Building a Professional Service Invoice (Google Sheets)',
-    youtubeId: 'F4tKk80G8A0',
+    youtubeId: '',
     studySheet: {
       overview: "Invoices are bills sent to clients to collect payments for services rendered. Building automated invoice templates in Google Sheets prevents errors in hours, rates, and tax calculations.",
       keyConcepts: "Professional invoices contain: business contact info, unique invoice number, client details, itemized billing lines (description, hours, hourly rate, line total), subtotal, sales tax or service tax percentages, and grand total. Formulas link rates, taxes, and subtotals.",
@@ -2271,7 +2271,7 @@ export const WORKORDERS = [
   },
   {
     num: 84, station: 'digitallit', title: 'Organizing a Safety Sweep Task List (Google Sheets)',
-    youtubeId: '809c9sL9_W0',
+    youtubeId: '',
     studySheet: {
       overview: "Project tracking requires managing task assignments and statuses. Google Sheets utilizes data validation dropdown menus to standardize inputs, preventing spelling and status formatting errors.",
       keyConcepts: "Data validation limits what can be typed into a cell. Dropdown menus are created by setting validation rules (e.g., matching a list of values like 'Not Started, In Progress, Completed'). Color-coding tasks by status improves tracking.",
@@ -2297,7 +2297,7 @@ export const WORKORDERS = [
   },
   {
     num: 85, station: 'digitallit', title: 'Professional Biography Drafting (Google Docs)',
-    youtubeId: 'F4tKk80G8A0',
+    youtubeId: '',
     studySheet: {
       overview: "A professional biography is a short paragraph summary of a tradesperson's background, training, and career achievements. It is used on contractor websites, bid proposals, and resumes.",
       keyConcepts: "Key styling principles in Google Docs include: font pairings, line spacing (1.15 or 1.5 standard), paragraph indents, and bulleted lists. Bulleted lists organize credentials, licenses, and tool proficiencies cleanly.",
@@ -2323,7 +2323,7 @@ export const WORKORDERS = [
   },
   {
     num: 86, station: 'digitallit', title: 'Safety Sign Flyer Design (Google Docs)',
-    youtubeId: '809c9sL9_W0',
+    youtubeId: '',
     studySheet: {
       overview: "Workplace warning signs and flyers must communicate critical safety hazards clearly. Designing signs in Google Docs teaches formatting layout, table structures, and margin alignments.",
       keyConcepts: "Warning signs must stand out. Key elements include: bold titles, contrasting color borders, centered text, and tables to organize columns of safety steps. Text sizes must scale so signs are readable from a distance.",
@@ -2349,7 +2349,7 @@ export const WORKORDERS = [
   },
   {
     num: 87, station: 'digitallit', title: 'Material Order Purchase Order (Google Sheets)',
-    youtubeId: 'F4tKk80G8A0',
+    youtubeId: '',
     studySheet: {
       overview: "Purchase Orders (POs) are formal documents sent from buyers to sellers authorizing material shipments. They track ordered items, unit prices, taxes, and total costs.",
       keyConcepts: "Key formatting tools in Google Sheets include: cell merging (combining cells across columns), borders, and numeric formats. PO layouts require an itemized grid, subtotal, sales tax rate, and grand total calculated using formulas.",
@@ -2375,7 +2375,7 @@ export const WORKORDERS = [
   },
   {
     num: 88, station: 'digitallit', title: 'Professional Email Drafting (Google Docs)',
-    youtubeId: '809c9sL9_W0',
+    youtubeId: '',
     studySheet: {
       overview: "Email is the primary channel for business communications. Professional emails require formal structures, clear subject lines, greetings, concise body text, and professional signature blocks.",
       keyConcepts: "Key email components include: Subject line (must be concise and descriptive), Salutation (formal greeting), Body text (paragraphs separated by single blank lines), Closing sign-off, and Signature block (name, title, contact details).",
@@ -2401,7 +2401,7 @@ export const WORKORDERS = [
   },
   {
     num: 89, station: 'digitallit', title: 'Weekly Work Timesheet Tracker (Google Sheets)',
-    youtubeId: 'F4tKk80G8A0',
+    youtubeId: '',
     studySheet: {
       overview: "Timesheets track worker hours to ensure accurate payroll. Google Sheets automates timesheet tracking by calculating elapsed time and summing weekly totals.",
       keyConcepts: "Time calculation subtracts start times from end times. In spreadsheets, time values are entered with AM/PM indicators (e.g., 8:00 AM). The formula to calculate hours worked (excluding a 30-minute unpaid lunch break) is: `=(End Time - Start Time) * 24 - 0.5`.",
@@ -2427,7 +2427,7 @@ export const WORKORDERS = [
   },
   {
     num: 90, station: 'digitallit', title: 'Master Tool Inventory Tracker (Google Sheets)',
-    youtubeId: 'F4tKk80G8A0',
+    youtubeId: '',
     studySheet: {
       overview: "Inventory sheets track stock levels. Google Sheets utilizes conditional formatting to highlight cells automatically when quantities drop below minimum levels, alert managers to reorder items.",
       keyConcepts: "Conditional formatting changes a cell's appearance (fill color, text color) based on rules. An example rule is: 'Format cells if less than 2, fill color light red'. Filters allow users to sort inventory lists alphabetically or numerically.",
