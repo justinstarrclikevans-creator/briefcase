@@ -5,11 +5,11 @@
   --bg-card: rgba(255, 255, 255, 0.7);
   --text-main: #1f2937;
   --text-muted: #6b7280;
-  --border-color: rgba(255, 255, 255, 0.5);
+  --border-color: rgba(0, 0, 0, 0.15);
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.1);
   --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
@@ -242,4 +242,69 @@ p {
     flex-direction: row;
     overflow-x: auto;
   }
+}
+
+/* Utilities for missing tailwind classes */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.bg-primary {
+  background-color: var(--primary);
+  color: white;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.gap-sm { gap: 0.5rem; }
+.gap-md { gap: 1rem; }
+.gap-lg { gap: 1.5rem; }
+.grid { display: grid; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.items-center { align-items: center; }
+
+.card {
+  background: var(--bg-card);
+  border: var(--glass-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.bg-success { background-color: var(--success); color: white; }
+.bg-warning { background-color: var(--warning); color: white; }
+.flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: flex-end; }
+.form-group { margin-bottom: 1rem; }
+.form-label { display: block; margin-bottom: 0.5rem; color: var(--text-main); font-weight: bold; }
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+.btn-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
