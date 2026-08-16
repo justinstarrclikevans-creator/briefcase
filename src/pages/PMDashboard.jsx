@@ -187,6 +187,7 @@ export default function PMDashboard() {
       'Resume Completed',
       'Career Interest',
       'Training Workorders Completed',
+      'Completed Workorder IDs',
       'Last Login'
     ];
 
@@ -211,9 +212,10 @@ export default function PMDashboard() {
         const career = `"${pState?.employmentReadiness?.careerInterest || 'None'}"`;
         
         const totalCompleted = Object.values(part.workorders).filter(w => w.status === 'approved').length;
+        const completedIds = `"${Object.keys(part.workorders).filter(id => part.workorders[id].status === 'approved').join('; ')}"`;
         const lastLogin = pState?.lastLogin ? `"${new Date(pState.lastLogin).toLocaleDateString()}"` : 'Never';
 
-        return [name, location, goal, missingStr, resume, career, totalCompleted, lastLogin].join(',');
+        return [name, location, goal, missingStr, resume, career, totalCompleted, completedIds, lastLogin].join(',');
       })
     ].join('\n');
 

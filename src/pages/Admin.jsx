@@ -158,7 +158,8 @@ const Admin = () => {
       'ER: Career Interest', 'ER: Resume Completed', 'ER: Workplace References', 'ER: Interview Practice', 'ER: Interview Clothing', 'ER: Work Tools',
       'HW: Health Insurance', 'HW: Welvista', 'HW: Primary Care', 'HW: Vision', 'HW: Prescription', 'HW: Meds Current', 'HW: Mental Health', 'HW: Substance Recovery',
       'FIN: Bank Account', 'FIN: Budget Completed', 'FIN: Budget Income', 'FIN: Budget Expenses', 'FIN: Paychecks', 'FIN: Savings Goal', 'FIN: Credit Report', 'FIN: Child Support Reviewed', 'FIN: Probation Obs',
-      'CP: Career Goal', 'CP: Target Industry', 'CP: Entry Level Job', 'CP: Next Credential', 'CP: 6-Month Goal', 'CP: Long-Term Wage Goal'
+      'CP: Career Goal', 'CP: Target Industry', 'CP: Entry Level Job', 'CP: Next Credential', 'CP: 6-Month Goal', 'CP: Long-Term Wage Goal',
+      'Completed Trades Workorders'
     ];
 
     const rows = participants.map(user => {
@@ -177,7 +178,8 @@ const Admin = () => {
         escape(er.careerInterest), escape(er.resumeCompleted), escape(er.workplaceReferences), escape(er.interviewPractice), escape(er.interviewClothing), escape(er.workTools),
         escape(hw.healthInsurance), escape(hw.welvistaReferral), escape(hw.primaryCare), escape(hw.visionAppointment), escape(hw.prescriptionNeeds), escape(hw.medicationsCurrent), escape(hw.mentalHealthReferral), escape(hw.substanceRecovery),
         escape(fin.bankAccountOpened), escape(fin.budgetWorksheetCompleted), escape(fin.budgetData?.income), escape(fin.budgetData?.expenses), escape(fin.understandingPaychecks), escape(fin.savingsGoal), escape(fin.creditReport), escape(fin.childSupportReviewed), escape(fin.probationObligations),
-        escape(cp.careerGoal), escape(cp.targetIndustry), escape(cp.entryLevelJob), escape(cp.nextCredential), escape(cp.sixMonthGoal), escape(cp.longTermWageGoal)
+        escape(cp.careerGoal), escape(cp.targetIndustry), escape(cp.entryLevelJob), escape(cp.nextCredential), escape(cp.sixMonthGoal), escape(cp.longTermWageGoal),
+        escape(Object.keys(user.wo_progress || {}).filter(woNum => user.wo_progress[woNum].status === 'approved').join('; '))
       ].join(',');
     });
     
