@@ -189,7 +189,7 @@ export default function CurriculumPortal() {
                       justifyContent: 'space-between', 
                       padding: '1.25rem 1rem', 
                       textAlign: 'left',
-                      borderColor: isSelected ? 'var(--accent-primary)' : 'var(--border-color)'
+                      borderColor: isSelected ? 'var(--primary)' : 'var(--border-color)'
                     }}
                     onClick={() => setSelectedStation(station.id)}
                   >
@@ -199,7 +199,7 @@ export default function CurriculumPortal() {
                     </div>
                     <span className="badge" style={{ 
                       background: isSelected ? 'white' : 'var(--bg-card)', 
-                      color: isSelected ? 'var(--accent-primary)' : 'var(--text-primary)',
+                      color: isSelected ? 'var(--primary)' : 'var(--text-main)',
                       fontSize: '0.75rem',
                       padding: '0.25rem 0.5rem',
                       borderRadius: '12px'
@@ -232,7 +232,7 @@ export default function CurriculumPortal() {
                         padding: '1.25rem', 
                         cursor: 'pointer',
                         transition: 'transform 0.2s',
-                        borderLeft: isApproved ? '5px solid var(--accent-success)' : isSubmitted ? '5px solid var(--accent-warning)' : isInProgress ? '5px solid var(--accent-primary)' : '1px solid var(--border-color)'
+                        borderLeft: isApproved ? '5px solid var(--success)' : isSubmitted ? '5px solid var(--warning)' : isInProgress ? '5px solid var(--primary)' : '1px solid var(--border-color)'
                       }}
                       onClick={() => {
                         setSelectedWorkorder(wo);
@@ -272,7 +272,7 @@ export default function CurriculumPortal() {
             
             <div className="flex gap-sm">
               <span className="badge" style={{ 
-                background: status === 'approved' ? 'var(--accent-success)' : status === 'submitted' ? 'var(--accent-warning)' : 'var(--border-color)',
+                background: status === 'approved' ? 'var(--success)' : status === 'submitted' ? 'var(--warning)' : 'var(--border-color)',
                 color: 'white',
                 padding: '0.5rem 1rem',
                 fontSize: '0.9rem',
@@ -286,7 +286,7 @@ export default function CurriculumPortal() {
 
           {/* Approved banner */}
           {status === 'approved' && (
-            <div className="card flex items-center gap-md" style={{ border: '1px solid var(--accent-success)', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--accent-success)' }}>
+            <div className="card flex items-center gap-md" style={{ border: '1px solid var(--success)', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)' }}>
               <Check size={32} />
               <div>
                 <h4 style={{ margin: 0 }}>This workorder is fully approved and signed off!</h4>
@@ -357,7 +357,7 @@ export default function CurriculumPortal() {
 
                 <div className="grid grid-cols-2 gap-lg">
                   <div className="flex-col gap-sm" style={{ background: 'rgba(0,0,0,0.05)', padding: '1.25rem', borderRadius: '8px' }}>
-                    <h3 style={{ color: 'var(--accent-danger)', margin: 0 }}>Safety & Trade Regulations</h3>
+                    <h3 style={{ color: 'var(--danger)', margin: 0 }}>Safety & Trade Regulations</h3>
                     <p style={{ fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{selectedWorkorder.studySheet.codesSafety}</p>
                   </div>
                   <div className="flex-col gap-sm" style={{ background: 'rgba(0,0,0,0.05)', padding: '1.25rem', borderRadius: '8px' }}>
@@ -383,7 +383,7 @@ export default function CurriculumPortal() {
                     {/* Google Research Section */}
                     <div className="card">
                       <h3 className="flex items-center gap-sm" style={{ margin: '0 0 var(--spacing-md) 0' }}>
-                        <Search color="var(--accent-primary)" /> Google Research Questions
+                        <Search color="var(--primary)" /> Google Research Questions
                       </h3>
                       
                       <div className="flex-col gap-md">
@@ -447,7 +447,7 @@ export default function CurriculumPortal() {
                               className="flex items-start gap-md card-interactive"
                               style={{ 
                                 padding: '0.75rem 1rem', 
-                                borderLeft: isChecked ? '4px solid var(--accent-success)' : '1px solid var(--border-color)',
+                                borderLeft: isChecked ? '4px solid var(--success)' : '1px solid var(--border-color)',
                                 opacity: status === 'approved' ? 0.8 : 1,
                                 cursor: status === 'approved' ? 'default' : 'pointer'
                               }}
@@ -462,8 +462,8 @@ export default function CurriculumPortal() {
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  backgroundColor: isChecked ? 'var(--accent-success)' : 'transparent',
-                                  borderColor: isChecked ? 'var(--accent-success)' : 'var(--border-color)'
+                                  backgroundColor: isChecked ? 'var(--success)' : 'transparent',
+                                  borderColor: isChecked ? 'var(--success)' : 'var(--border-color)'
                                 }}>
                                   {isChecked && <Check size={12} color="white" />}
                                 </div>
@@ -483,7 +483,7 @@ export default function CurriculumPortal() {
                     {/* YouTube Video Section */}
                     <div className="card">
                       <h3 className="flex items-center gap-sm" style={{ margin: '0 0 var(--spacing-sm) 0' }}>
-                        <Play color="var(--accent-primary)" /> Video Explanation
+                        <Play color="var(--primary)" /> Video Explanation
                       </h3>
                       
                       {videoToRender ? (
@@ -506,7 +506,7 @@ export default function CurriculumPortal() {
                     {/* Safety & Quality Checks */}
                     <div className="card">
                       <h3 className="flex items-center gap-sm" style={{ margin: '0 0 var(--spacing-md) 0' }}>
-                        <CheckSquare color="var(--accent-warning)" /> Sign-off Verification
+                        <CheckSquare color="var(--warning)" /> Sign-off Verification
                       </h3>
                       <p className="text-muted" style={{ fontSize: '0.8rem', marginBottom: 'var(--spacing-md)' }}>
                         Verify the following criteria before submitting this workorder for manager approval:
@@ -521,7 +521,7 @@ export default function CurriculumPortal() {
                               className="flex items-start gap-md card-interactive"
                               style={{ 
                                 padding: '0.5rem 0.75rem', 
-                                borderLeft: isChecked ? '4px solid var(--accent-warning)' : '1px solid var(--border-color)',
+                                borderLeft: isChecked ? '4px solid var(--warning)' : '1px solid var(--border-color)',
                                 opacity: status === 'approved' ? 0.8 : 1,
                                 cursor: status === 'approved' ? 'default' : 'pointer'
                               }}
@@ -536,13 +536,13 @@ export default function CurriculumPortal() {
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  backgroundColor: isChecked ? 'var(--accent-warning)' : 'transparent',
-                                  borderColor: isChecked ? 'var(--accent-warning)' : 'var(--border-color)'
+                                  backgroundColor: isChecked ? 'var(--warning)' : 'transparent',
+                                  borderColor: isChecked ? 'var(--warning)' : 'var(--border-color)'
                                 }}>
                                   {isChecked && <Check size={10} color="white" />}
                                 </div>
                               </div>
-                              <span style={{ fontSize: '0.85rem', color: isChecked ? 'var(--text-muted)' : 'var(--text-primary)' }}>
+                              <span style={{ fontSize: '0.85rem', color: isChecked ? 'var(--text-muted)' : 'var(--text-main)' }}>
                                 {sign}
                               </span>
                             </div>
