@@ -14,6 +14,8 @@ import Admin from './pages/Admin';
 import CurriculumPortal from './pages/CurriculumPortal';
 import ResumeBuilder from './pages/ResumeBuilder';
 import SessionReview from './pages/SessionReview';
+import ProgressReport from './pages/ProgressReport';
+import CurriculumWorkbook from './pages/CurriculumWorkbook';
 
 const App = () => {
   return (
@@ -22,6 +24,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/curriculum-workbook" element={<CurriculumWorkbook />} />
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/core-stability" element={<CoreStability />} />
@@ -33,6 +36,7 @@ const App = () => {
             <Route path="/curriculum" element={<CurriculumPortal />} />
             <Route path="/resume-builder" element={<ResumeBuilder />} />
             <Route path="/session-review" element={<SessionReview />} />
+            <Route path="/progress-report" element={<ProgressReport />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -42,3 +46,4 @@ const App = () => {
 };
 
 export default App;
+// force reload

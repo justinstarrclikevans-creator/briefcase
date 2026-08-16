@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, Briefcase, HeartPulse, DollarSign, Map, HelpCircle } from 'lucide-react';
+import { ShieldCheck, Briefcase, HeartPulse, DollarSign, Map, HelpCircle, FileText, AlertTriangle } from 'lucide-react';
+import { useAppContext } from '../context/AppContext';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { currentUser, reportIssue } = useAppContext();
+  
+  const [showWeeklyCheckin, setShowWeeklyCheckin] = useState(false);
+  const [issues, setIssues] = useState({
+    life: false, housing: false, transportation: false, health: false, mentalHealth: false, legal: false
+  });
+  const [issueDetails, setIssueDetails] = useState('');
+
+  useEffect(() => {
+    if (currentUser) {
+      const today = new Date();
+      // Check if it is Monday (1)
+      if (today.getDay() === 1) {
+        const lastCheckinStr = currentUser.lastWeeklyCheckIn ? new Date(currentUser.lastWeeklyCheckIn).toDateString() : null;
+        if (lastCheckinStr !== today.toDateString()) {
+          setShowWeeklyCheckin(true);
+        }
+      }
+    }
+  }, [currentUser]);
+
+  const submitWeeklyCheckin = () => {
+    const selectedTypes = Object.keys(issues).filter(k => issues[k]);
+    if (selectedTypes.length > 0 || issueDetails.trim().length > 0) {
+      const issuesArray = selectedTypes.map(t => ({
+        type: t.charAt(0).toUpperCase() + t.slice(1).replace(/([A-Z])/g, ' $1').trim(),
+        description: issueDetails
+      }));
+      
+      // If they wrote details but checked no boxes, just file as "General"
+      if (issuesArray.length === 0 && issueDetails.trim().length > 0) {
+        issuesArray.push({ type: 'General Issue', description: issueDetails });
+      }
+      reportIssue(issuesArray);
+    } else {
+      // Nothing reported, just update lastWeeklyCheckIn by passing empty array
+      reportIssue([]);
+    }
+    setShowWeeklyCheckin(false);
+  };
 
   const sections = [
     {
@@ -45,9 +86,18 @@ const Dashboard = () => {
 
   return (
     <div className="page-container animate-fade-in">
-      <div>
-        <h1 style={{ color: 'var(--primary)' }}>What would you like to work on today?</h1>
-        <p className="text-muted">Select a section below to track your progress and access resources.</p>
+      <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
+        <div>
+          <h1 style={{ color: 'var(--primary)', margin: 0 }}>What would you like to work on today?</h1>
+          <p className="text-muted" style={{ marginTop: '0.5rem' }}>Select a section below to track your progress and access resources.</p>
+        </div>
+        <button 
+          className="btn-secondary" 
+          style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+          onClick={() => navigate('/progress-report')}
+        >
+          <FileText size={20} /> Generate Priority Report
+        </button>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
@@ -79,6 +129,53 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
+
+      {/* Weekly Monday Check-in Modal */}
+      {showWeeklyCheckin && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div className="card animate-fade-in" style={{ width: '500px', maxWidth: '90%', padding: '2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem', color: 'var(--primary)' }}>
+              <AlertTriangle size={28} />
+              <h2 style={{ margin: 0 }}>Weekly Check-in</h2>
+            </div>
+            
+            <p style={{ marginBottom: '1.5rem' }}>Happy Monday! Are you experiencing any new issues or roadblocks this week that your Program Manager can help with?</p>
+            
+            <div className="grid grid-cols-2 gap-sm" style={{ marginBottom: '1.5rem' }}>
+              {Object.keys(issues).map(key => (
+                <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={issues[key]} 
+                    onChange={(e) => setIssues({...issues, [key]: e.target.checked})} 
+                  />
+                  {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()}
+                </label>
+              ))}
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Additional Details (Optional)</label>
+              <textarea 
+                className="form-input" 
+                rows="3" 
+                placeholder="Explain what you need help with..."
+                value={issueDetails}
+                onChange={(e) => setIssueDetails(e.target.value)}
+              />
+            </div>
+
+            <div className="flex justify-end gap-md" style={{ marginTop: '2rem' }}>
+              <button className="btn-primary" onClick={submitWeeklyCheckin}>
+                Submit Report
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

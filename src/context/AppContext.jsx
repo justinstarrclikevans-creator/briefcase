@@ -68,6 +68,8 @@ const initialParticipantState = {
     longTermWageGoal: ''
   },
   dailyActivityLog: [],
+  reportedIssues: [],
+  lastWeeklyCheckIn: null,
   training: {
     basicsDrillBits: false,
     basicsCordlessDrills: false,
@@ -102,6 +104,7 @@ const initialParticipantState = {
 
 export const AppProvider = ({ children }) => {
   const [participants, setParticipantsState] = useState([]);
+  const [globalSettings, setGlobalSettings] = useState({ videoOverrides: {} });
   const latestStateRef = React.useRef({}); // Tracks latest state synchronously to prevent race conditions
   const [currentUserId, setCurrentUserId] = useState(() => {
     return localStorage.getItem('briefcase_currentUser') || null;
@@ -117,8 +120,24 @@ export const AppProvider = ({ children }) => {
   const fetchParticipants = async () => {
     const { data, error } = await supabase.from('participants').select('*');
     if (!error && data) {
-      // Map DB schema to frontend schema
-      const mapped = data.map(p => ({
+      // 1. Handle Global Settings
+      let settingsDoc = data.find(p => p.first_name === '_GLOBAL_SETTINGS_');
+      if (settingsDoc) {
+        setGlobalSettings(settingsDoc.state_data || { videoOverrides: {} });
+      } else {
+        // Create global settings document if it doesn't exist
+        const newSettings = { videoOverrides: {} };
+        await supabase.from('participants').insert([{
+          first_name: '_GLOBAL_SETTINGS_',
+          last_name: 'SYSTEM',
+          location: 'System',
+          state_data: newSettings
+        }]);
+        setGlobalSettings(newSettings);
+      }
+
+      // 2. Map DB schema to frontend schema, filtering out global settings
+      const mapped = data.filter(p => p.first_name !== '_GLOBAL_SETTINGS_').map(p => ({
         id: p.id,
         firstName: p.first_name,
         lastName: p.last_name,
@@ -132,6 +151,8 @@ export const AppProvider = ({ children }) => {
         careerPlanning: { ...initialParticipantState.careerPlanning, ...(p.state_data.careerPlanning || {}) },
         training: { ...initialParticipantState.training, ...(p.state_data.training || {}) },
         dailyActivityLog: p.state_data.dailyActivityLog || [],
+        reportedIssues: p.state_data.reportedIssues || [],
+        lastWeeklyCheckIn: p.state_data.lastWeeklyCheckIn || null,
         wo_progress: p.state_data.wo_progress || {}
       }));
       mapped.forEach(p => {
@@ -144,6 +165,17 @@ export const AppProvider = ({ children }) => {
       setFetchError(true);
     }
     setLoading(false);
+  };
+
+  const updateGlobalSettings = async (updates) => {
+    const nextSettings = { ...globalSettings, ...updates };
+    setGlobalSettings(nextSettings);
+    
+    // Find the ID and update it
+    const { data } = await supabase.from('participants').select('id').eq('first_name', '_GLOBAL_SETTINGS_');
+    if (data && data.length > 0) {
+      await supabase.from('participants').update({ state_data: nextSettings }).eq('id', data[0].id);
+    }
   };
 
   useEffect(() => {
@@ -183,6 +215,8 @@ export const AppProvider = ({ children }) => {
         financial: initialParticipantState.financial,
         careerPlanning: initialParticipantState.careerPlanning,
         dailyActivityLog: [],
+        reportedIssues: [],
+        lastWeeklyCheckIn: null,
         training: initialParticipantState.training,
         wo_progress: {}
       };
@@ -252,6 +286,8 @@ export const AppProvider = ({ children }) => {
         financial: nextUser.financial,
         careerPlanning: nextUser.careerPlanning || initialParticipantState.careerPlanning,
         dailyActivityLog: nextUser.dailyActivityLog || [],
+        reportedIssues: nextUser.reportedIssues || [],
+        lastWeeklyCheckIn: nextUser.lastWeeklyCheckIn || null,
         training: nextUser.training || initialParticipantState.training,
         wo_progress: nextUser.wo_progress || {}
       };
@@ -318,6 +354,25 @@ export const AppProvider = ({ children }) => {
     
     updateParticipant(currentUser.id, null, {
       dailyActivityLog: [...(targetUser.dailyActivityLog || []), logEntry]
+    });
+  };
+
+  const reportIssue = (issues) => {
+    if (!currentUser) return;
+    const targetUser = latestStateRef.current[currentUser.id];
+    const today = new Date().toISOString();
+    
+    const newIssues = issues.map(issue => ({
+      id: crypto.randomUUID(),
+      date: today,
+      type: issue.type,
+      description: issue.description,
+      status: 'pending'
+    }));
+
+    updateParticipant(currentUser.id, null, {
+      reportedIssues: [...(targetUser.reportedIssues || []), ...newIssues],
+      lastWeeklyCheckIn: today
     });
   };
 
@@ -405,6 +460,7 @@ export const AppProvider = ({ children }) => {
       participants,
       currentUser,
       loading,
+      globalSettings,
       login,
       logout,
       removeParticipant,
@@ -412,6 +468,8 @@ export const AppProvider = ({ children }) => {
       updateGoal,
       updateSection,
       logActivity,
+      reportIssue,
+      updateGlobalSettings,
       // Trades Curriculum exports
       getWorkorderProgress,
       saveWorkorderProgress,

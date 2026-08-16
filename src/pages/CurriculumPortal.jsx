@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { STATIONS, WORKORDERS } from '../data/curriculumData';
 import { Wrench, Zap, Droplet, Wind, Car, Shield, Compass, Layers, Sliders, Laptop, Check, Search, Play, Save, CheckSquare, ArrowLeft, RefreshCw, Info } from 'lucide-react';
@@ -16,7 +17,7 @@ const ICON_MAP = {
 };
 
 export default function CurriculumPortal() {
-  const { currentUser: user, getWorkorderProgress, saveWorkorderProgress, submitWorkorder, getCloudState } = useAppContext();
+  const { currentUser: user, getWorkorderProgress, saveWorkorderProgress, submitWorkorder, getCloudState, globalSettings } = useAppContext();
   const [selectedStation, setSelectedStation] = useState(STATIONS[0].id);
   const [selectedWorkorder, setSelectedWorkorder] = useState(null);
   
@@ -125,19 +126,7 @@ export default function CurriculumPortal() {
     );
   };
 
-  const handleYoutubeUpdate = (url) => {
-    let id = url;
-    // Extract ID from youtube URLs
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      if (match && match[2].length === 11) {
-        id = match[2];
-      }
-    }
-    setCustomYoutubeId(id);
-    showNotification('Video updated for this workorder.');
-  };
+  const videoToRender = globalSettings?.videoOverrides?.[selectedWorkorder?.num] || selectedWorkorder?.youtubeId;
 
   const currentStation = STATIONS.find(s => s.id === selectedStation);
   const stationWorkorders = WORKORDERS.filter(w => w.station === selectedStation);
@@ -180,9 +169,9 @@ export default function CurriculumPortal() {
               <h1>Curriculum Workstations</h1>
               <p className="text-muted">Select a station and pick a workorder to begin your trade session.</p>
             </div>
-            <a href="/Q2 3.0/Station Participant Workbook.pdf" download className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              Download PDF Workbook
-            </a>
+            <Link to="/curriculum-workbook" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              Print/Download Workbook
+            </Link>
           </div>
 
           <div className="grid" style={{ gridTemplateColumns: '300px 1fr', gap: 'var(--spacing-xl)' }}>
@@ -497,11 +486,11 @@ export default function CurriculumPortal() {
                         <Play color="var(--accent-primary)" /> Video Explanation
                       </h3>
                       
-                      {customYoutubeId ? (
+                      {videoToRender ? (
                         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '8px', marginBottom: 'var(--spacing-md)' }}>
                           <iframe 
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-                            src={`https://www.youtube.com/embed/${customYoutubeId}`}
+                            src={`https://www.youtube.com/embed/${videoToRender}`}
                             title="YouTube video player" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowFullScreen
@@ -509,41 +498,7 @@ export default function CurriculumPortal() {
                         </div>
                       ) : (
                         <div className="card text-center text-muted" style={{ marginBottom: 'var(--spacing-md)', padding: '2rem' }}>
-                          No video loaded. Enter a video URL below.
-                        </div>
-                      )}
-
-                      {/* Custom Video URL input */}
-                      {status !== 'approved' && (
-                        <div className="form-group no-print">
-                          <label className="form-label" style={{ fontSize: '0.8rem' }}>Change/Add YouTube Video URL</label>
-                          <div className="flex gap-sm">
-                            <input 
-                              type="text" 
-                              className="form-input" 
-                              style={{ padding: '0.35rem 0.5rem', fontSize: '0.8rem' }}
-                              placeholder="Paste YouTube Link here..." 
-                              onKeyDown={e => {
-                                if (e.key === 'Enter') {
-                                  handleYoutubeUpdate(e.target.value);
-                                  e.target.value = '';
-                                }
-                              }}
-                            />
-                            <button 
-                              className="btn btn-outline" 
-                              style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
-                              onClick={(e) => {
-                                const input = e.currentTarget.previousSibling;
-                                if (input.value) {
-                                  handleYoutubeUpdate(input.value);
-                                  input.value = '';
-                                }
-                              }}
-                            >
-                              Update
-                            </button>
-                          </div>
+                          No video loaded.
                         </div>
                       )}
                     </div>
@@ -617,3 +572,4 @@ export default function CurriculumPortal() {
     </div>
   );
 }
+// force reload

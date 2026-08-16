@@ -5,13 +5,21 @@ import { Link } from 'react-router-dom';
 import { WORKORDERS, STATIONS } from '../data/curriculumData';
 
 const Admin = () => {
-  const { participants, removeParticipant, approveWorkorder } = useAppContext();
+  const { participants, removeParticipant, approveWorkorder, globalSettings, updateGlobalSettings } = useAppContext();
   const [passcode, setPasscode] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState('briefcase'); // briefcase, submissions, matrix
+  const [activeTab, setActiveTab] = useState('briefcase'); // briefcase, submissions, matrix, videos
   const [filterLocation, setFilterLocation] = useState('All');
   const [selectedSubmission, setSelectedSubmission] = useState(null);
+
+  const [videoInputStates, setVideoInputStates] = useState({});
+  const [notification, setNotification] = useState('');
+
+  const showNotification = (msg) => {
+    setNotification(msg);
+    setTimeout(() => setNotification(''), 3000);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -142,29 +150,34 @@ const Admin = () => {
     setSelectedSubmission(null);
   };
 
-  const exportToCSV = () => {
-    const headers = ['First Name', 'Last Name', 'Location', '90-Day Goal', 'Outstanding Needs', 'Legal Requirements', 'Training Progress', 'Housing Plan', 'Transportation Plan', 'Last Login'];
-    
+  const exportMasterCSV = () => {
+    const headers = [
+      'First Name', 'Last Name', 'Location', '90-Day Goal', 'Last Login',
+      'CS: State ID', 'CS: Drivers License', 'CS: SSN Card', 'CS: Birth Certificate', 'CS: Reliable Phone', 'CS: Professional Email', 'CS: Email Address', 'CS: Prof Voicemail', 'CS: Library Card', 'CS: Bank Account', 'CS: Child Support Contact', 'CS: Transportation Plan', 'CS: Housing Plan',
+      'LR: Child Support', 'LR: Probation', 'LR: Pending Charges', 'LR: Sex Offender', 'LR: ADSAP',
+      'ER: Career Interest', 'ER: Resume Completed', 'ER: Workplace References', 'ER: Interview Practice', 'ER: Interview Clothing', 'ER: Work Tools',
+      'HW: Health Insurance', 'HW: Welvista', 'HW: Primary Care', 'HW: Vision', 'HW: Prescription', 'HW: Meds Current', 'HW: Mental Health', 'HW: Substance Recovery',
+      'FIN: Bank Account', 'FIN: Budget Completed', 'FIN: Budget Income', 'FIN: Budget Expenses', 'FIN: Paychecks', 'FIN: Savings Goal', 'FIN: Credit Report', 'FIN: Child Support Reviewed', 'FIN: Probation Obs',
+      'CP: Career Goal', 'CP: Target Industry', 'CP: Entry Level Job', 'CP: Next Credential', 'CP: 6-Month Goal', 'CP: Long-Term Wage Goal'
+    ];
+
     const rows = participants.map(user => {
-      const needs = getMissingNeeds(user).join('; ');
-      const legal = getActiveLegalReqs(user).join('; ');
-      const training = getTrainingProgress(user);
-      const housing = (user.coreStability?.housingPlan || '').replace(/"/g, '""');
-      const transport = (user.coreStability?.transportationPlan || '').replace(/"/g, '""');
-      const goal = (user.goal90Day || '').replace(/"/g, '""');
-      const lastLogin = user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never';
+      const escape = (val) => `"${(val || '').toString().replace(/"/g, '""')}"`;
+      const cs = user.coreStability || {};
+      const lr = cs.legalRequirements || {};
+      const er = user.employmentReadiness || {};
+      const hw = user.healthWellness || {};
+      const fin = user.financial || {};
+      const cp = user.careerPlanning || {};
       
       return [
-        `"${user.firstName || ''}"`,
-        `"${user.lastName || ''}"`,
-        `"${user.location || ''}"`,
-        `"${goal}"`,
-        `"${needs}"`,
-        `"${legal}"`,
-        `"${training}"`,
-        `"${housing}"`,
-        `"${transport}"`,
-        `"${lastLogin}"`
+        escape(user.firstName), escape(user.lastName), escape(user.location), escape(user.goal90Day), escape(user.lastLogin),
+        escape(cs.stateId), escape(cs.driversLicense), escape(cs.ssnCard), escape(cs.birthCertificate), escape(cs.reliablePhone), escape(cs.professionalEmail), escape(cs.emailAddress), escape(cs.professionalVoicemail), escape(cs.libraryCard), escape(cs.bankAccount), escape(cs.childSupportContact), escape(cs.transportationPlan), escape(cs.housingPlan),
+        escape(lr.childSupport), escape(lr.probationClasses), escape(lr.pendingCharges), escape(lr.sexOffenderRegistry), escape(lr.adsap),
+        escape(er.careerInterest), escape(er.resumeCompleted), escape(er.workplaceReferences), escape(er.interviewPractice), escape(er.interviewClothing), escape(er.workTools),
+        escape(hw.healthInsurance), escape(hw.welvistaReferral), escape(hw.primaryCare), escape(hw.visionAppointment), escape(hw.prescriptionNeeds), escape(hw.medicationsCurrent), escape(hw.mentalHealthReferral), escape(hw.substanceRecovery),
+        escape(fin.bankAccountOpened), escape(fin.budgetWorksheetCompleted), escape(fin.budgetData?.income), escape(fin.budgetData?.expenses), escape(fin.understandingPaychecks), escape(fin.savingsGoal), escape(fin.creditReport), escape(fin.childSupportReviewed), escape(fin.probationObligations),
+        escape(cp.careerGoal), escape(cp.targetIndustry), escape(cp.entryLevelJob), escape(cp.nextCredential), escape(cp.sixMonthGoal), escape(cp.longTermWageGoal)
       ].join(',');
     });
     
@@ -173,7 +186,7 @@ const Admin = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `Briefcase_Export_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `Master_Briefcase_Export_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -188,8 +201,8 @@ const Admin = () => {
           <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>Monitor participant checklists and sign off trades workorders.</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button className="btn-primary" onClick={exportToCSV} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-            <Download size={18} /> Export CSV
+          <button className="btn-primary" onClick={exportMasterCSV} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+            <Download size={18} /> Export Master CSV
           </button>
           <button className="btn-secondary" onClick={() => setIsAuthenticated(false)} style={{ cursor: 'pointer' }}>Lock</button>
         </div>
@@ -239,6 +252,13 @@ const Admin = () => {
           onClick={() => setActiveTab('matrix')}
         >
           Trades Matrix
+        </button>
+        <button 
+          className={activeTab === 'videos' ? 'btn-primary' : 'btn-secondary'}
+          style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.5rem 1rem', cursor: 'pointer' }}
+          onClick={() => setActiveTab('videos')}
+        >
+          Manage Videos
         </button>
       </div>
 
@@ -526,8 +546,84 @@ const Admin = () => {
           )}
         </div>
       )}
+      
+      {/* TAB 4: MANAGE VIDEOS */}
+      {activeTab === 'videos' && (
+        <div className="glass-card animate-fade-in" style={{ padding: '1.5rem', border: '1px solid var(--border-color)' }}>
+          <h2 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary)' }}>Global Curriculum Videos</h2>
+          <p style={{ margin: '0 0 1.5rem 0', fontSize: '0.9rem', color: 'var(--text-muted)' }}>Paste YouTube links below to override the default videos for all participants.</p>
+          
+          {notification && (
+            <div style={{ background: 'var(--success)', color: 'white', padding: '0.75rem', borderRadius: '6px', marginBottom: '1rem', textAlign: 'center' }}>
+              {notification}
+            </div>
+          )}
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            {WORKORDERS.map(wo => {
+              const currentVideo = globalSettings.videoOverrides?.[wo.num] || wo.youtubeId;
+              const inputValue = videoInputStates[wo.num] !== undefined ? videoInputStates[wo.num] : `https://youtu.be/${currentVideo}`;
+
+              const handleSaveVideo = async (woNum) => {
+                let id = videoInputStates[woNum];
+                if (!id) return;
+                
+                // Extract video ID from any URL format
+                const match = id.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+                const finalId = match ? match[1] : (id.length === 11 ? id : null);
+                
+                if (finalId) {
+                  await updateGlobalSettings({
+                    videoOverrides: {
+                      ...(globalSettings.videoOverrides || {}),
+                      [woNum]: finalId
+                    }
+                  });
+                  showNotification(`Video updated for Workorder #${woNum}`);
+                } else {
+                  alert('Invalid YouTube URL or ID.');
+                }
+              };
+
+              return (
+                <div key={wo.num} style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '1.5rem', padding: '1.5rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                  <div>
+                    <strong style={{ display: 'block', fontSize: '1.1rem', marginBottom: '0.25rem' }}>WO #{wo.num}: {wo.title}</strong>
+                    <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{STATIONS.find(s => s.id === wo.station)?.name}</span>
+                    <div style={{ marginTop: '1rem', borderRadius: '8px', overflow: 'hidden' }}>
+                      <iframe 
+                        width="100%" 
+                        height="160" 
+                        src={`https://www.youtube.com/embed/${currentVideo}`}
+                        frameBorder="0" 
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '1rem' }}>
+                    <label style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Update YouTube Video URL:</label>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <input 
+                        type="text" 
+                        className="input-field" 
+                        placeholder="Paste YouTube Link (e.g. https://youtu.be/...)"
+                        value={inputValue}
+                        onChange={(e) => setVideoInputStates({ ...videoInputStates, [wo.num]: e.target.value })}
+                        style={{ flex: 1 }}
+                      />
+                      <button className="btn-primary" onClick={() => handleSaveVideo(wo.num)}>Save</button>
+                    </div>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Changes here apply instantly to all participants.</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Admin;
+// force reload

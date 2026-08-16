@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { getAlerts, resolveAlert, getReports, getAllParticipantsProgress, approveWorkorder, useAuth } from '../store';
+import { useAppContext } from '../context/AppContext';
 import { WORKORDERS, STATIONS } from '../data/curriculumData';
 import { AlertCircle, CheckCircle, Clock, List, LayoutGrid, Check, FileText, Search, User, Award, ShieldAlert, MapPin } from 'lucide-react';
 
 export default function PMDashboard() {
-  const { user: pmUser } = useAuth();
+  const { currentUser: pmUser, participants, getAllParticipantsProgress, approveWorkorder, updateParticipant } = useAppContext();
   const [activeTab, setActiveTab] = useState('alerts'); // alerts, submissions, matrix
   const [filterLocation, setFilterLocation] = useState('All');
-  
-  // Existing state
-  const [alerts, setAlerts] = useState([]);
-  const [reports, setReports] = useState([]);
   
   // Curriculum state
   const [progressData, setProgressData] = useState([]);
@@ -18,10 +14,8 @@ export default function PMDashboard() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setAlerts(getAlerts().reverse());
-    setReports(getReports().reverse());
     loadCurriculumProgress();
-  }, []);
+  }, [participants]);
 
   const loadCurriculumProgress = async () => {
     setIsLoading(true);
@@ -30,33 +24,122 @@ export default function PMDashboard() {
     setIsLoading(false);
   };
 
-  const handleResolve = (id) => {
-    resolveAlert(id);
-    setAlerts(getAlerts().reverse());
+  // --- ALERTS GENERATION ---
+  // Generate alerts dynamically from participants missing core stability items
+  const generateAlerts = () => {
+    const generatedAlerts = [];
+    participants.forEach(p => {
+      const cs = p.coreStability;
+      if (cs) {
+        const checkAndAdd = (key, label) => {
+          if (!cs[key]) {
+            generatedAlerts.push({
+              id: `${p.id}-${key}`,
+              participantId: p.id,
+              participantName: `${p.firstName} ${p.lastName}`,
+              item: label,
+              fieldKey: key,
+              section: 'Core Stability',
+              status: 'pending',
+              date: p.lastLogin || new Date().toISOString()
+            });
+          }
+        };
+
+        checkAndAdd('stateId', 'State ID');
+        checkAndAdd('birthCertificate', 'Birth Certificate');
+        checkAndAdd('ssnCard', 'SSN Card');
+      }
+
+      if (p.reportedIssues && p.reportedIssues.length > 0) {
+        p.reportedIssues.forEach(issue => {
+          if (issue.status === 'pending') {
+            generatedAlerts.push({
+              id: issue.id,
+              participantId: p.id,
+              participantName: `${p.firstName} ${p.lastName}`,
+              item: `Weekly Issue: ${issue.type}`,
+              description: issue.description,
+              section: 'Weekly Check-in',
+              status: 'pending',
+              date: issue.date,
+              isWeeklyIssue: true
+            });
+          }
+        });
+      }
+    });
+    // Sort oldest first
+    return generatedAlerts.sort((a, b) => new Date(a.date) - new Date(b.date));
+  };
+
+  const handleResolveAlert = async (alert) => {
+    const targetP = participants.find(p => p.id === alert.participantId);
+    if (!targetP) return;
+    
+    if (alert.isWeeklyIssue) {
+      const updatedIssues = targetP.reportedIssues.map(issue => {
+        if (issue.id === alert.id) {
+          return { ...issue, status: 'resolved' };
+        }
+        return issue;
+      });
+      await updateParticipant(alert.participantId, null, { reportedIssues: updatedIssues });
+    } else {
+      // Resolving an alert means we check it off in their coreStability checklist!
+      const newCoreStability = {
+        ...targetP.coreStability,
+        [alert.fieldKey]: true
+      };
+      await updateParticipant(alert.participantId, null, { coreStability: newCoreStability });
+    }
+  };
+
+  // --- DAILY REPORTS GENERATION ---
+  const generateReports = () => {
+    const generatedReports = [];
+    participants.forEach(p => {
+      if (p.dailyActivityLog && p.dailyActivityLog.length > 0) {
+        // Reverse so newest is first for each participant
+        [...p.dailyActivityLog].reverse().forEach((log, idx) => {
+          generatedReports.push({
+            id: `${p.id}-log-${idx}`,
+            participantId: p.id,
+            participantName: `${p.firstName} ${p.lastName}`,
+            date: log.timestamp || new Date().toISOString(),
+            activity: log.activity
+          });
+        });
+      }
+    });
+    // Sort newest first globally
+    return generatedReports.sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
   const handleApprove = async (userId, workorderNum) => {
     if (!pmUser) return;
-    await approveWorkorder(userId, workorderNum, pmUser.name);
-    await loadCurriculumProgress();
+    const pmName = `${pmUser.firstName} ${pmUser.lastName}`.trim();
+    await approveWorkorder(userId, workorderNum, pmName);
     setSelectedSubmission(null);
   };
 
+  const allAlerts = generateAlerts();
+  const allReports = generateReports();
+
   // --- FILTERS BY CENTER LOCATION ---
   const getFilteredAlerts = () => {
-    const pending = alerts.filter(a => a.status === 'pending');
-    if (filterLocation === 'All') return pending;
-    return pending.filter(a => {
-      const part = progressData.find(p => p.user.id === a.participantId);
-      return part?.user.location === filterLocation;
+    if (filterLocation === 'All') return allAlerts;
+    return allAlerts.filter(a => {
+      const part = participants.find(p => p.id === a.participantId);
+      return part?.location === filterLocation;
     });
   };
 
   const getFilteredReports = () => {
-    if (filterLocation === 'All') return reports;
-    return reports.filter(r => {
-      const part = progressData.find(p => p.user.id === r.participantId);
-      return part?.user.location === filterLocation;
+    if (filterLocation === 'All') return allReports;
+    return allReports.filter(r => {
+      const part = participants.find(p => p.id === r.participantId);
+      return part?.location === filterLocation;
     });
   };
 
@@ -69,13 +152,15 @@ export default function PMDashboard() {
       for (const [num, statusData] of Object.entries(participant.workorders)) {
         if (statusData.status === 'submitted') {
           const wo = WORKORDERS.find(w => w.num === parseInt(num));
-          const station = STATIONS.find(s => s.id === wo.station);
-          list.push({
-            user: participant.user,
-            workorder: wo,
-            station,
-            progress: statusData
-          });
+          if (wo) {
+            const station = STATIONS.find(s => s.id === wo.station);
+            list.push({
+              user: participant.user,
+              workorder: wo,
+              station,
+              progress: statusData
+            });
+          }
         }
       }
     }
@@ -92,6 +177,56 @@ export default function PMDashboard() {
   const submissions = getSubmissions();
   const filteredProgressData = getFilteredProgressData();
 
+  // CSV Export Function
+  const exportToCSV = () => {
+    const headers = [
+      'Participant Name',
+      'Location',
+      'Goal',
+      'Core Stability Missing',
+      'Resume Completed',
+      'Career Interest',
+      'Training Workorders Completed',
+      'Last Login'
+    ];
+
+    const csvData = [
+      headers.join(','), // Header row
+      ...filteredProgressData.map(part => {
+        const pState = participants.find(p => p.id === part.user.id);
+        const name = `"${part.user.name}"`;
+        const location = `"${part.user.location}"`;
+        const goal = `"${pState?.goal90Day || 'Not set'}"`;
+        
+        // Compute missing core stability
+        const missing = [];
+        if (pState?.coreStability) {
+          if (!pState.coreStability.stateId) missing.push('State ID');
+          if (!pState.coreStability.birthCertificate) missing.push('Birth Cert');
+          if (!pState.coreStability.ssnCard) missing.push('SSN');
+        }
+        const missingStr = `"${missing.join('; ') || 'None'}"`;
+        
+        const resume = pState?.employmentReadiness?.resumeCompleted ? 'Yes' : 'No';
+        const career = `"${pState?.employmentReadiness?.careerInterest || 'None'}"`;
+        
+        const totalCompleted = Object.values(part.workorders).filter(w => w.status === 'approved').length;
+        const lastLogin = pState?.lastLogin ? `"${new Date(pState.lastLogin).toLocaleDateString()}"` : 'Never';
+
+        return [name, location, goal, missingStr, resume, career, totalCompleted, lastLogin].join(',');
+      })
+    ].join('\n');
+
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `Briefcase_Export_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="container">
       <div className="flex justify-between items-center no-print" style={{ marginBottom: 'var(--spacing-xl)' }}>
@@ -99,14 +234,23 @@ export default function PMDashboard() {
           <h1>Program Manager Dashboard</h1>
           <p className="text-muted">Monitor participant alerts, sign-off trade workorders, and audit curriculum progress.</p>
         </div>
-        <button 
-          className="btn btn-outline" 
-          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-          onClick={loadCurriculumProgress}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Syncing...' : 'Sync Cloud Data'}
-        </button>
+        <div className="flex gap-sm">
+          <button 
+            className="btn btn-secondary" 
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            onClick={exportToCSV}
+          >
+            Download CSV Report
+          </button>
+          <button 
+            className="btn btn-outline" 
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            onClick={loadCurriculumProgress}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Syncing...' : 'Sync Cloud Data'}
+          </button>
+        </div>
       </div>
 
       {/* Center Location Filter Selector */}
@@ -170,7 +314,7 @@ export default function PMDashboard() {
             {activeAlerts.length === 0 ? (
               <div className="card text-center text-muted" style={{ padding: '2rem' }}>No pending alerts. All good!</div>
             ) : (
-              <div className="flex-col gap-sm">
+              <div className="flex-col gap-sm" style={{ maxHeight: '600px', overflowY: 'auto', paddingRight: '10px' }}>
                 {activeAlerts.map(alert => (
                   <div key={alert.id} className="card" style={{ borderLeft: '4px solid var(--accent-danger)', padding: '1rem' }}>
                     <div className="flex justify-between items-center">
@@ -179,11 +323,8 @@ export default function PMDashboard() {
                         <p className="text-muted" style={{ fontSize: '0.875rem', margin: '4px 0' }}>
                           Missing: <strong>{alert.item}</strong> ({alert.section})
                         </p>
-                        <p className="text-muted" style={{ fontSize: '0.75rem', margin: 0 }}>
-                          {new Date(alert.date).toLocaleString()}
-                        </p>
                       </div>
-                      <button className="btn btn-outline" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }} onClick={() => handleResolve(alert.id)}>
+                      <button className="btn btn-outline" style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }} onClick={() => handleResolveAlert(alert)}>
                         <CheckCircle size={14} /> Resolve
                       </button>
                     </div>
@@ -195,16 +336,16 @@ export default function PMDashboard() {
 
           <div className="glass-panel">
             <h2 className="flex items-center gap-sm" style={{ margin: '0 0 var(--spacing-md) 0' }}>
-              <Clock color="var(--accent-primary)" /> Recent Daily Reviews
+              <Clock color="var(--accent-primary)" /> Recent Daily Logs
             </h2>
             <p className="text-muted" style={{ marginBottom: 'var(--spacing-md)', fontSize: '0.9rem' }}>
-              End of session reviews submitted by participants in {filterLocation === 'All' ? 'all centers' : filterLocation}.
+              Activity logs and session reviews from {filterLocation === 'All' ? 'all centers' : filterLocation}.
             </p>
 
             {activeReports.length === 0 ? (
-              <div className="card text-center text-muted" style={{ padding: '2rem' }}>No reports submitted yet.</div>
+              <div className="card text-center text-muted" style={{ padding: '2rem' }}>No logs submitted yet.</div>
             ) : (
-              <div className="flex-col gap-sm">
+              <div className="flex-col gap-sm" style={{ maxHeight: '600px', overflowY: 'auto', paddingRight: '10px' }}>
                 {activeReports.map(report => (
                   <div key={report.id} className="card" style={{ padding: '1rem' }}>
                     <h4 style={{ margin: 0 }}>{report.participantName}</h4>
@@ -212,23 +353,10 @@ export default function PMDashboard() {
                       {new Date(report.date).toLocaleString()}
                     </p>
                     <div>
-                      <strong style={{ fontSize: '0.85rem' }}>Completed Items:</strong>
-                      <ul style={{ paddingLeft: '1.25rem', fontSize: '0.85rem', marginBottom: '0.5rem', marginTop: '4px' }}>
-                        {report.completedItems.length > 0 ? (
-                          report.completedItems.map((item, idx) => <li key={idx}>{item}</li>)
-                        ) : (
-                          <li>None specified</li>
-                        )}
-                      </ul>
+                      <p style={{ fontSize: '0.85rem', fontStyle: 'italic', background: 'rgba(0,0,0,0.1)', padding: '0.5rem', borderRadius: '4px', marginTop: '4px', marginBottom: 0 }}>
+                        {report.activity}
+                      </p>
                     </div>
-                    {report.notes && (
-                      <div>
-                        <strong style={{ fontSize: '0.85rem' }}>Notes:</strong>
-                        <p style={{ fontSize: '0.85rem', fontStyle: 'italic', background: 'rgba(0,0,0,0.1)', padding: '0.5rem', borderRadius: '4px', marginTop: '4px', marginBottom: 0 }}>
-                          "{report.notes}"
-                        </p>
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
